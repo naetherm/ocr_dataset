@@ -29,7 +29,7 @@ class ArXivPaper(object):
     self.download_dir = download_dir
 
   def download(self):
-    url = "https://arxiv.org/e-print/" + self.pid
+    url = "https://export.arxiv.org/e-print/" + self.pid
 
     urllib.request.urlretrieve(url, os.path.join(self.download_dir, "{}.tar.gz".format(self.pid)))
 
@@ -60,7 +60,7 @@ class ArXiv(object):
         for m in month_range:
           for p in ["%04d" % i for i in range(1, 9999)]:
             try:
-              urllib.request.urlopen("https://arxiv.org/abs/{}{}.{}".format(y, m, p))
+              urllib.request.urlopen("https://export.arxiv.org/abs/{}{}.{}".format(y, m, p))
               fout.write("{}{}.{}\n".format(y, m, p))
             except:
               break
@@ -68,7 +68,7 @@ class ArXiv(object):
         for m in month_range:
           for p in ["%05d" % i for i in range(1, 99999)]:
             try:
-              urllib.request.urlopen("https://arxiv.org/abs/{}{}.{}".format(y, m, p))
+              urllib.request.urlopen("https://export.arxiv.org/abs/{}{}.{}".format(y, m, p))
               fout.write("{}{}.{}\n".format(y, m, p))
             except:
               break
