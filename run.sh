@@ -17,7 +17,7 @@ then
 fi
 
 # Download everything
-arxiv_autoload --paper-ids=${DATA}/arxiv/paper_ids.txt --download-dir=${TAR_OUT}/
+. arxiv_autoload --paper-ids=${DATA}/arxiv/paper_ids.txt --download-dir=${TAR_OUT}/
 
 # Extract all files
 cd ${TAR_OUT}
