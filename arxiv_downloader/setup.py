@@ -36,7 +36,7 @@ setup(
   entry_points= {
     "console_scripts": [
       "arxiv_downloader=arxiv_downloader.__main__:main",
-      "arxiv_fetcher=arxiv_downloader.__main__:fetch_main"
+      "arxiv_fetcher=arxiv_downloader.__main__:fetch_main",
       "arxiv_autoload=arxiv_downloader.__main__:autoload_main"
     ]
 
