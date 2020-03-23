@@ -13,7 +13,7 @@ from ocr_pipeline.ocr_img2txt import Img2TxtConverter
 def main(argv=None):
 
   if argv is None:
-    argv = argv[1:]
+    argv = sys.argv[1:]
 
   parser = argparse.ArgumentParser(prog="ocr_img2txt", add_help=False)
 

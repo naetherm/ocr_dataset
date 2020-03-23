@@ -42,6 +42,7 @@ class Img2TxtConverter(object):
   def _fetch_all_images(self):
     files = []
     for file in os.listdir(self.input_directory):
-      if file.endswith(".ppm"):
+      if file.endswith(".jpg"):
         files.append(os.path.join(self.input_directory, file))
+    files.sort()
     return files

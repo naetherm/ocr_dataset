@@ -181,6 +181,13 @@ class SpecialsTextSpec(object):
     self.simplify_repl = simplify_repl
 
 
+def raise_l2t_unknown_latex(n):
+  if n.isNodeType(latexwalker.LatexMacroNode):
+    raise ValueError("Unknown macro: '\\{}'".format(n.macroname))
+  elif n.isNodeType(latexwalker.LatexEnvironmentNode):
+    raise ValueError("Unknown environment: '\\begin{{{}}}'".format(n.environmentname))
+  raise ValueError("Unknown latex construct: '{}'".format(n.latex_verbatim()))
+
 
 def fmt_replace_documentclass(envnode, l2tobj):
   if envnode.nodeargd and envnode.nodeargd.argnlist:

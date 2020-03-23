@@ -7,6 +7,7 @@ import os
 import sys
 
 from pdf2image import convert_from_path
+from pdf2image.generators import counter_generator
 from pdf2image.exceptions import (
   PDFInfoNotInstalledError,
   PDFPageCountError,
@@ -29,9 +30,11 @@ class PDF2ImgConverter(object):
 
     images_from_path = convert_from_path(
       self.input_file, 
-      output_folder=self.output_directory
+      output_folder=self.output_directory,
+      output_file=counter_generator(),
+      fmt="jpg"
     )
 
-    for idx, img in enumerate(images_from_path):
-      print("idx: {}".format(idx))
-      cv2.imwrite(os.path.join(self.output_directory, str(idx) + ".ppm"), np.array(img))
+    #for idx, img in enumerate(images_from_path):
+    #  print("idx: {}".format(idx))
+    #  cv2.imwrite(os.path.join(self.output_directory, str(idx) + ".ppm"), np.array(img))

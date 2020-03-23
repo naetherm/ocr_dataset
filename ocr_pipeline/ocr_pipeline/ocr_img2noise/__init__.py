@@ -69,14 +69,14 @@ class Img2NoiseConverter(object):
           noised_ = self._rotate(noised_)
 
       # Done, write image to file
-      cv2.imwrite(img_fn)
+      cv2.imwrite(img_fn, noised_)
 
 
 
   def _fetch_all_images(self):
     files = []
     for file in os.listdir(self.input_directory):
-      if file.endswith(".ppm"):
+      if file.endswith(".jpg"):
         files.append(os.path.join(self.input_directory, file))
     return files
 

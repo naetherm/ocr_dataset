@@ -44,6 +44,7 @@ specs = [
             std_macro('addlength', True, 2),
             std_macro('setcounter', True, 2),
             std_macro('addcounter', True, 2),
+            std_macro('newtheorem', "*{[{"),
             std_macro('newcommand', "*{[[{"),
             std_macro('renewcommand', "*{[[{"),
             std_macro('providecommand', "*{[[{"),
@@ -62,14 +63,19 @@ specs = [
             MacroSpec('addbibresource', '{'),
 
             # \title, \author, \date
-            MacroSpec('title', '{'),
+            MacroSpec('title', '*[{'),
             MacroSpec('shorttitle', '{'),
+            MacroSpec('affiliation', '{'),
             MacroSpec('author', '[{'),
             MacroSpec('shortauthors', '{'),
             MacroSpec('runningauthor', '{'),
             MacroSpec('corrauthor', '{'),
             MacroSpec('date', '{'),
+            MacroSpec('address', '{'),
+            MacroSpec('preprint', '{'),
             MacroSpec('email', '{'),
+
+            MacroSpec('pacs', '{'),
 
             MacroSpec('affil', '[{'),
             MacroSpec('altaffiltext', '{{'),

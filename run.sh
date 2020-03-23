@@ -22,19 +22,27 @@ fi
 
 echo "Downloading the tex sources ..."
 # Download everything
-arxiv_autoload --paper-ids=${DATA}/arxiv/paper_ids.txt --download-dir=${TAR_OUT}/
+#arxiv_autoload --paper-ids=${DATA}/arxiv/paper_ids.txt --download-dir=${TAR_OUT}/
 
 echo "Extracting everything ..."
 # Extract all files
 cd ${TAR_OUT}
-for entry in $(find ${TAR_OUT} -mindepth 1 -maxdepth 1 -type f)
+for entry in $(find ${TAR_OUT} -name "*tar.gz" -mindepth 1 -maxdepth 1 -type f)
 do
   echo "Processing ${entry}"
   FILENAME=$(basename -- "$entry")
   FILENAME="${FILENAME%.*}"
 
-  mkdir -p ${FILENAME}
-  tar xzf ${entry} --directory=${FILENAME}
+  #mkdir -p ${FILENAME}
+  #tar xzf ${entry} --directory=${FILENAME}
+
+  #if [ $? -eq 0 ]
+  #then 
+  #  # None
+  #  
+  #else
+  #  rm -rf ${FILENAME}
+  #fi
 done
 
 # Now start the simplification process, loop through all entries in $TAR_OUT
@@ -56,7 +64,7 @@ do
       array[ $i ]="$line"
       ((i++))
     done < <(find -name "*.tex")
-    TEX_LIST=$(find -name "*.tex")
+    TEX_LIST=$array #$(find -name "*.tex")
 
     echo "LENGTH: ${#TEX_LIST[@]} -> ${TEX_LIST}"
 
@@ -64,19 +72,19 @@ do
 
     if [[ ${i} == 1 ]]
     then
-      echo "For directory '${entry}' will compile the file '${#TEX_LIST[@]}'"
+      echo "For directory '${entry}' will compile the file '${TEX_LIST[0]}'"
       #TEX_FILES=$(echo ${TEX_LIST} | cut -d$'\n' -f1-)
       # And create a simplified version
       {
-        pdflatex -halt-on-error -interaction=nonstopmode ${#TEX_LIST[@]}
+        pdflatex -halt-on-error -interaction=nonstopmode ${TEX_LIST[0]}
       } && {
 
         mkdir -p ${SIM_OUT}/${FILENAME}
         OUT_DIR=${SIM_OUT}/${FILENAME}
-        texsimplifier ${#TEX_LIST[@]} > ${OUT_DIR}/simplified.tex
+        timeout 10 texsimplifier ${TEX_LIST[0]} > ${OUT_DIR}/simplified.tex
 
         # Extract PDF to PPM
-        tex2text ${#TEX_LIST[@]} > ${OUT_DIR}/simplified.txt
+        tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/simplified.txt
       } && {
 
         # Compile PDF
@@ -95,6 +103,8 @@ do
         ocr_img2txt --input-directory=${OUT_DIR}/
         ((GCount++))
         echo "Generated the output for ${GCount} now"
+
+        cp ${TEX_LIST[0]}.pdf ${OUT_DIR}/original.pdf
       }
       cd ..
     fi
