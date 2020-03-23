@@ -15,6 +15,10 @@ VOLUME /data /output
 # Install all dependencies
 RUN ./install_deps.sh
 
+# Install every package from CTAN
+RUN tlmgr update --self --all
+RUN tlmgr install scheme-full
+
 ENTRYPOINT ["/bin/bash"]
 
 CMD ["./run.sh"]

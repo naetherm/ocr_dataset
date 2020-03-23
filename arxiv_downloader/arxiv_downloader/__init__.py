@@ -34,7 +34,10 @@ class ArXivPaper(object):
     url = "https://export.arxiv.org/e-print/" + self.pid
 
     try:
-      urllib.request.urlretrieve(url, os.path.join(self.download_dir, "{}.tar.gz".format(self.pid)))
+      if not os.path.exists(os.path.join(self.download_dir, "{}.tar.gz".format(self.pid))):
+        urllib.request.urlretrieve(url, os.path.join(self.download_dir, "{}.tar.gz".format(self.pid)))
+      else:
+        logger.warning("File already exists, will skip.")
     except:
       logger.warning(
         "Unable to download the file '{}' - skipping.".format(
