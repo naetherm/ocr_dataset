@@ -32,6 +32,7 @@ class PDF2ImgConverter(object):
       self.input_file, 
       output_folder=self.output_directory,
       output_file=counter_generator(),
+      first_page=1,
       fmt="jpg"
     )
 

@@ -31,8 +31,7 @@ def main(argv=None):
     action='store',
     dest='noise_types',
     choices=['gauss', 'sp', 'poisson', 'speckle', 'erode', 'rotate'],
-    nargs='+', 
-    required=True,
+    nargs='+',
     help="The different supported nosie types. During the executing the types for the current document will be choosen randomly."
   )
 

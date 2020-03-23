@@ -52,7 +52,7 @@ latex_base_specs = {
     'environments': [
 
         # Dirty hack: some documents don't have a \maketitle so let's hardcode it right after begin{document}
-        EnvironmentTextSpec('document', simplify_repl="\n\\begin{document}\n\\maketitle\n%s\n\\end{document}"),
+        EnvironmentTextSpec('document', simplify_repl="\n\\begin{document}\n\\newpage\n\\lsstyle\n\\maketitle\n%s\n\\end{document}"),
 
         EnvironmentTextSpec('equation', discard=True),
         EnvironmentTextSpec('equation*', discard=True),

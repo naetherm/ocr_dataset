@@ -119,6 +119,9 @@ def main(argv=None):
                       help="Show this help information and exit")
 
 
+  group.add_argument('--letter-spacing', dest='letter_spacing', default=51, 
+                     help="The letter spacing that should be used. default: 51.")
+
   parser.add_argument('files', metavar="FILE", nargs='*',
                       help='Input files (if none specified, read from stdandard input)')
 
@@ -160,7 +163,8 @@ def main(argv=None):
     strict_latex_spaces=args.strict_latex_spaces,
     keep_braced_groups=args.keep_braced_groups,
     keep_braced_groups_minlen=args.keep_braced_groups_minlen,
-    fill_text=fill_text
+    fill_text=fill_text,
+    letter_spacing=args.letter_spacing
   )
 
   print(ln2s.nodelist_to_simplified(nodelist) + "\n")

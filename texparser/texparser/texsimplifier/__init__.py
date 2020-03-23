@@ -193,14 +193,15 @@ def fmt_replace_documentclass(envnode, l2tobj):
   if envnode.nodeargd and envnode.nodeargd.argnlist:
     a = envnode.nodeargd.argnlist
   return "\\documentclass{article}\n" + \
-         "\\usepackage[letterspace=51]{microtype}\n\\lsstyle\n"
+         "\\usepackage[letterspace="+str(getattr(l2tobj, 'letter_spacing', 51))+"]{microtype}\n"
   
   # "\\" + envnode.macroname + "".join([l2tobj._groupnodecontents_to_text(n) if '{' not in n.delimiters else '' for n in a]) + 
   #return envnode.macroname##l2tobj.macro_node_to_text(envnode)
 
 
 def fmt_replace_begin_document(envnode, l2tobj):
-  return "\\begin{document}\n\\maketitle\n"
+  # Several hacks are placed here: 
+  return "\\begin{document}\n\\newpage\\maketitle\n"
 
 
 def fmt_verb_macro(envnode, l2tobj):
@@ -477,6 +478,8 @@ class LatexSimplifier(object):
     self.keep_braced_groups_minlen = flags.pop('keep_braced_groups_minlen', 2)
 
     self.fill_text = flags.pop('fill_text', None)
+
+    self.letter_spacing = flags.pop('letter_spaccing', 51)
 
   def set_tex_input_directory(
     self,

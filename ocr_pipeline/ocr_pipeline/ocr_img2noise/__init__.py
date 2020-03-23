@@ -35,7 +35,10 @@ class Img2NoiseConverter(object):
     self.input_directory = input_directory
     self.noise_types = noise_types
     self.num_trials = num_trials
-    self.num_noise_types = len(self.noise_types)
+    if self.noise_types != None:
+      self.num_noise_types = len(self.noise_types)
+    else:
+      self.num_noise_types = 0
     self.gauss_mean = gauss_mean
     self.gauss_variance = gauss_variance
     self.sp_ratio = sp_ratio
@@ -44,32 +47,34 @@ class Img2NoiseConverter(object):
     self.erose_iterations = erose_iterations
     self.rotate_angle = rotate_angle
 
-    # Get all images located within the file
-    img_files_ = self._fetch_all_images()
 
-    for _, img_fn in enumerate(img_files_):
-      # Read the image file
-      noised_ = cv2.imread(img_fn)
+    if self.noise_types != None and len(self.noise_types) > 0:
+      # Get all images located within the file
+      img_files_ = self._fetch_all_images()
 
-      for _ in range(self.num_trials):
-        # Choose an noiser
-        rnd_noiser_ = self._choose_noise_type()
+      for _, img_fn in enumerate(img_files_):
+        # Read the image file
+        noised_ = cv2.imread(img_fn)
 
-        if rnd_noiser_ == 'gauss':
-          noised_ = self._gauss(noised_)
-        if rnd_noiser_ == 'sp':
-          noised_ = self._salt_n_pepper(noised_)
-        if rnd_noiser_ == 'poisson':
-          noised_ = self._poisson(noised_)
-        if rnd_noiser_ == 'speckle':
-          noised_ = self._speckle(noised_)
-        if rnd_noiser_ == 'erode':
-          noised_ = self._erode(noised_)
-        if rnd_noiser_ == 'rotate':
-          noised_ = self._rotate(noised_)
+        for _ in range(self.num_trials):
+          # Choose an noiser
+          rnd_noiser_ = self._choose_noise_type()
 
-      # Done, write image to file
-      cv2.imwrite(img_fn, noised_)
+          if rnd_noiser_ == 'gauss':
+            noised_ = self._gauss(noised_)
+          if rnd_noiser_ == 'sp':
+            noised_ = self._salt_n_pepper(noised_)
+          if rnd_noiser_ == 'poisson':
+            noised_ = self._poisson(noised_)
+          if rnd_noiser_ == 'speckle':
+            noised_ = self._speckle(noised_)
+          if rnd_noiser_ == 'erode':
+            noised_ = self._erode(noised_)
+          if rnd_noiser_ == 'rotate':
+            noised_ = self._rotate(noised_)
+
+        # Done, write image to file
+        cv2.imwrite(img_fn, noised_)
 
 
 
