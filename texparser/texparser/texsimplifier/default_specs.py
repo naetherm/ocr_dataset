@@ -18,7 +18,7 @@ else:
 
 from texparser.texsimplifier import MacroTextSpec, EnvironmentTextSpec, SpecialsTextSpec, \
     fmt_equation_environment, fmt_placeholder_node, placeholder_node_formatter, fmt_input_macro, \
-    fmt_reconstruct_macro, fmt_replace_documentclass, fmt_verb_macro
+    fmt_reconstruct_macro, fmt_replace_documentclass, fmt_verb_macro, fmt_replace_begin_document
 
 
 
@@ -29,12 +29,17 @@ def _format_uebung(n, l2t):
         s += '[{}]\n'.format(l2t.nodelist_to_simplified([optarg]))
     return s
 
-def _format_maketitle(title, author, date):
-    s = title + '\n'
-    s += '    ' + author + '\n'
-    s += '    ' + date + '\n'
-    s += '='*max(len(title), 4+len(author), 4+len(date)) + '\n\n'
-    return s
+def _format_maketitle(l2tobj, title, author, date):
+    if title == None:
+        pass
+        setattr(l2tobj, "__replace_maketitle", True)
+        return ""
+    else:
+        s = title + '\n'
+        s += '    ' + author + '\n'
+        s += '    ' + date + '\n'
+        s += '='*max(len(title), 4+len(author), 4+len(date)) + '\n\n'
+        return s
 
 def _latex_today():
     return '{dt:%B} {dt.day}, {dt.year}'.format(dt=datetime.datetime.now())
@@ -46,7 +51,8 @@ latex_base_specs = {
     
     'environments': [
 
-        EnvironmentTextSpec('document', discard=False),
+        # Dirty hack: some documents don't have a \maketitle so let's hardcode it right after begin{document}
+        EnvironmentTextSpec('document', simplify_repl="\n\\begin{document}\n\\maketitle\n%s\n\\end{document}"),
 
         EnvironmentTextSpec('equation', discard=True),
         EnvironmentTextSpec('equation*', discard=True),
@@ -77,6 +83,7 @@ latex_base_specs = {
         EnvironmentTextSpec('minipage', discard=True),
 
         EnvironmentTextSpec('abstract', discard=False),
+        
         EnvironmentTextSpec('quote', discard=False),
 
     ],
@@ -111,24 +118,15 @@ latex_base_specs = {
         MacroTextSpec('shortauthors', discard=True),
         MacroTextSpec('title', discard=False),
         MacroTextSpec('date', discard=True),
-        MacroTextSpec('maketitle', discard=False),
+        # We must include this hack here:
+        # Remove the maketitle if there is any, we will hardcoded add it right after begin{document}!
+        MacroTextSpec('maketitle', discard=True),
 
 
         MacroTextSpec('input', simplify_repl=fmt_input_macro),
         MacroTextSpec('include', simplify_repl=fmt_input_macro),
 
     ] + [ MacroTextSpec(x, simplify_repl=y, discard=False, n=z) for x, y, z in (
-
-        #('title', lambda n, l2tobj: setattr(l2tobj, '_doc_title', l2tobj.nodelist_to_simplified(n.nodeargd.argnlist[0:1]))),
-        #('title', lambda n, l2tobj: '\\title{}'.format(l2tobj.nodelist_to_simplified(n.nodeargd.argnlist[0:1])), None),
-        #('author', lambda n, l2tobj: setattr(l2tobj, '_doc_author', l2tobj.nodelist_to_simplified(n.nodeargd.argnlist[0:1]))),
-        #('author', None, None),
-        #('author', fmt_reconstruct_macro, None),
-        #('date', lambda n, l2tobj: setattr(l2tobj, '_doc_date', l2tobj.nodelist_to_simplified(n.nodeargd.argnlist[0:1])), None),
-        #('maketitle', lambda n, l2tobj: _format_maketitle(getattr(l2tobj, '_doc_title', '[NO \title GIVEN]'),
-        #                                                  getattr(l2tobj, '_doc_author', '[NO \author GIVEN]'),
-        #                                                  getattr(l2tobj, '_doc_date', _latex_today()))),
-        #('maketitle', None, None),
 
         ('today', None, None),
 

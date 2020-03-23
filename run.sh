@@ -14,7 +14,7 @@ mkdir -p ${OUT}/arxiv/out
 SIM_OUT=${OUT}/arxiv/out
 TAR_OUT=${OUT}/arxiv/tars
 
-# Is there a paper_ids.txt?
+# If there is already a paper_ids.txt we don't fetch the list of all papers
 if [ ! -r ${DATA}/arxiv/paper_ids.txt ]
 then
   arxiv_fetcher
@@ -59,6 +59,8 @@ do
     TEX_LIST=$(find -name "*.tex")
 
     echo "LENGTH: ${#TEX_LIST[@]} -> ${TEX_LIST}"
+
+    # TODO(naetherm): Find *.tex file that contains documentclass
 
     if [[ ${i} == 1 ]]
     then

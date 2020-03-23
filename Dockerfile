@@ -2,7 +2,7 @@
 # Chair of Algorithms and Data Structures.
 # Markus Näther <naetherm@informatik.uni-freiburg.de>
 
-FROM ubuntu:18.04
+FROM ubuntu:19.10
 
 MAINTAINER "Markus 'naetherm' Näther <naetherm@informatik.uni-freiburg.de>"
 
@@ -16,6 +16,8 @@ VOLUME /data /output
 RUN ./install_deps.sh
 
 # Install every package from CTAN
+RUN tlmgr init-usertree
+RUN TEXMFHOME=texmf TEXMFVAR=texmf-var updmap-user
 RUN tlmgr update --self --all
 RUN tlmgr install scheme-full
 

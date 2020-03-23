@@ -191,6 +191,11 @@ def fmt_replace_documentclass(envnode, l2tobj):
   # "\\" + envnode.macroname + "".join([l2tobj._groupnodecontents_to_text(n) if '{' not in n.delimiters else '' for n in a]) + 
   #return envnode.macroname##l2tobj.macro_node_to_text(envnode)
 
+
+def fmt_replace_begin_document(envnode, l2tobj):
+  return "\\begin{document}\n\\maketitle\n"
+
+
 def fmt_verb_macro(envnode, l2tobj):
   if envnode.nodeargd and envnode.nodeargd.argnlist:
     a = envnode.nodeargd.argnlist
