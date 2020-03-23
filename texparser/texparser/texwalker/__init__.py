@@ -2068,7 +2068,7 @@ class LatexWalker(object):
             if tok.tok == 'macro':
                 # read a macro. see if it has arguments.
                 macroname = tok.arg
-                logger.warning("identified macro: {}".format(macroname))
+                #logger.warning("identified macro: {}".format(macroname))
                 mspec = p.parsing_state.latex_context.get_macro_spec(macroname)
                 if mspec is None:
                     mspec = macrospec.MacroSpec('')
@@ -2081,7 +2081,7 @@ class LatexWalker(object):
                     raise self._get_exc_for_parseerror_or_eof(
                         e, tok, "arguments of macro \"{}\"".format(macroname)
                     )
-                logger.warning("mspec: {}".format(mspec))
+                #logger.warning("mspec: {}".format(mspec))
                 if len(margsresult) == 4:
                     (nodeargd, mapos, malen, mdic) = margsresult
                 else:

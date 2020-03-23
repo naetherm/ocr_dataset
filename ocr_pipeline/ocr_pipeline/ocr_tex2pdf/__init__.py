@@ -17,13 +17,15 @@ class TeX2PDFConverter(object):
     self.input_file = input_file
     self.output_file = output_file
 
+    print("Writing to output file: {}".format(self.output_file))
+
     # Create the pdf file
     pdfl = PDFLaTeX.from_texfile(self.input_file)
-    pdf, log, _ = pdfl.create_pdf()
+    pdf, log, _ = pdfl.create_pdf(keep_pdf_file=True)
 
     # Save the log file
-    with open(self.output_file + ".log", "w") as fout:
-      fout.write(log)
+    #with open(self.output_file + ".log", "w") as fout:
+    #  fout.write(log)
     # Save the pdf file to disk
     with open(self.output_file, 'wb') as fout:
       fout.write(pdf)

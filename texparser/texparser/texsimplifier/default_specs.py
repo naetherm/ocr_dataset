@@ -108,9 +108,10 @@ latex_base_specs = {
 
         MacroTextSpec('caption', discard=True),
         MacroTextSpec('author', discard=True),
-        MacroTextSpec('title', discard=True),
+        MacroTextSpec('shortauthors', discard=True),
+        MacroTextSpec('title', discard=False),
         MacroTextSpec('date', discard=True),
-        MacroTextSpec('maketitle', discard=True),
+        MacroTextSpec('maketitle', discard=False),
 
 
         MacroTextSpec('input', simplify_repl=fmt_input_macro),
@@ -135,26 +136,26 @@ latex_base_specs = {
         #('includegraphics', placeholder_node_formatter('graphics')),
         ('includegraphics', None, None),
 
-        ('ref', '<ref>', None),
-        ('autoref', '<ref>', None),
-        ('cref', '<ref>', None),
-        ('Cref', '<Ref>', None),
-        ('eqref', '(<ref>)', None),
+        ('ref', '[REF]', None),
+        ('autoref', '[REF]', None),
+        ('cref', '[REF]', None),
+        ('Cref', '[REF]', None),
+        ('eqref', '([REF])', None),
         ('url', '<%s>', None),
         ('item',
          lambda r, l2tobj: '\n  '+(
              l2tobj.nodelist_to_simplified([r.nodeoptarg]) if r.nodeoptarg else '* '
          ), None
         ) ,
-        ('footnote', '[%s]', None),
+        #('footnote', '[%s]', None),
         ('href', lambda n, l2tobj:  \
          '{} <{}>'.format(l2tobj.nodelist_to_simplified([n.nodeargd.argnlist[1]]), 
                           l2tobj.nodelist_to_simplified([n.nodeargd.argnlist[0]])), None),
 
-        ('cite', '<cit.>', None),
-        ('citet', '<cit.>', None),
-        ('citep', '<cit.>', None),
-        ('citeauthor', '<cit.>', None),
+        ('cite', '[CIT.]', None),
+        ('citet', '[CIT.]', None),
+        ('citep', '[CIT.]', None),
+        ('citeauthor', '[CIT.]', None),
 
         # use second argument:
         #('texorpdfstring', lambda node, l2t: l2t.nodelist_to_simplified(node.nodeargs[1:2])),

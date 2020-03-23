@@ -9,7 +9,7 @@ apt install -y tzdata
 ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 dpkg-reconfigure --frontend noninteractive tzdata
 
-apt install -y python3 python3-dev python3-pip tesseract-ocr tesseract-ocr-eng texlive-full
+apt install -y python3 python3-dev python3-pip tesseract-ocr tesseract-ocr-eng texlive-full poppler-utils xorg
 
 # Install required python modules
 pip3 install --user pdf2image numpy opencv-python pytesseract Pillow pdflatex requests beautifulsoup4

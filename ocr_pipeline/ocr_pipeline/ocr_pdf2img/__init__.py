@@ -13,6 +13,7 @@ from pdf2image.exceptions import (
   PDFSyntaxError
 )
 import cv2
+import numpy as np
 
 class PDF2ImgConverter(object):
 
@@ -32,4 +33,5 @@ class PDF2ImgConverter(object):
     )
 
     for idx, img in enumerate(images_from_path):
-      cv2.imwrite(os.path.join(self.output_directory, str(idx) + ".ppm", img))
+      print("idx: {}".format(idx))
+      cv2.imwrite(os.path.join(self.output_directory, str(idx) + ".ppm"), np.array(img))

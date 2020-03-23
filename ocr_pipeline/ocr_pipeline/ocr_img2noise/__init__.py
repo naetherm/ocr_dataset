@@ -98,11 +98,11 @@ class Img2NoiseConverter(object):
     noised = np.copy(img)
     # Salt mode
     num_salt = np.ceil(self.sp_amount * img.size * self.sp_ratio)
-    coords = [rnd.randint(0, i - 1, int(num_salt)) for i in image.shape]
+    coords = [rnd.randint(0, i - 1, int(num_salt)) for i in img.shape]
     noised[coords] = 255
     # Pepper mode
     num_pepper = np.ceil(self.sp_amount * img.size * (1. - self.sp_ratio))
-    coords = [rnd.randint(0, i - 1, int(num_pepper)) for i in image.shape]
+    coords = [rnd.randint(0, i - 1, int(num_pepper)) for i in img.shape]
     noised[coords] = 0
 
     return noised

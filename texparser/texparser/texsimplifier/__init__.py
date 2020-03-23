@@ -85,7 +85,11 @@ class MacroTextSpec(object):
   def __init__(self, macroname, simplify_repl=None, discard=None, n=None):
     super(MacroTextSpec, self).__init__()
     self.macroname = macroname
-    self.discard = True if (discard is None) else discard
+    if simplify_repl != None:
+      self.discard = False
+    if discard != None:
+      self.discard = discard
+    #self.discard = True if (discard is None) else discard
     self.simplify_repl = simplify_repl
     self.n = n
 
@@ -614,7 +618,7 @@ class LatexSimplifier(object):
           nl = ""
         return node.comment + nl
       else:
-        return node.comment + node.comment_post_space
+        return "%" + node.comment + node.comment_post_space
     
     else:
       if self.strict_latex_spaces["after-comment"]:
@@ -627,7 +631,7 @@ class LatexSimplifier(object):
     contents = self._groupnodecontents_to_text(node)
 
     if self.keep_braced_groups and len(contents) >= self.keep_braced_groups_minlen:
-      return node.delimiters[0] + contents + node.delimiters[1]
+      return contents
     return contents
 
   def macro_node_to_text(self, node):
@@ -639,11 +643,12 @@ class LatexSimplifier(object):
       mac = MacroTextSpec(macroname, discard=True)
     
     def get_macro_str_repl(node, macroname, mac):
+      if mac.discard:
+        return ""
+
       if mac.simplify_repl:
         return self.apply_simplify_repl(node, mac.simplify_repl, what=r"macro '\%s'"%(macroname))
       
-      if mac.discard:
-        return ""
       a = []
 
       if node.nodeargd and node.nodeargd.argnlist:
@@ -651,6 +656,9 @@ class LatexSimplifier(object):
       return "\\" + mac.macroname + "".join([self._groupnodecontents_to_text(n) for n in a])
     
     macrostr = get_macro_str_repl(node, macroname, mac)
+
+    if mac.macroname == "shortauthors":
+      logger.warning("IDENTIFIED SHORTAUTHORS: {}".format(macrostr))
 
     return macrostr
 

@@ -63,12 +63,16 @@ specs = [
 
             # \title, \author, \date
             MacroSpec('title', '{'),
+            MacroSpec('shorttitle', '{'),
             MacroSpec('author', '[{'),
+            MacroSpec('shortauthors', '{'),
             MacroSpec('runningauthor', '{'),
             MacroSpec('corrauthor', '{'),
             MacroSpec('date', '{'),
+            MacroSpec('email', '{'),
 
             MacroSpec('affil', '[{'),
+            MacroSpec('altaffiltext', '{{'),
 
             # (Note: single backslash) end of line with optional no-break ('*') and
             # additional vertical spacing, e.g. \\*[2mm]
