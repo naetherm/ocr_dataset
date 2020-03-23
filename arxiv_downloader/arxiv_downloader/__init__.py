@@ -7,9 +7,11 @@ import os
 
 import requests
 import urllib.request
+import logging
 
 from bs4 import BeautifulSoup
 
+logger = logging.getLogger(__name__)
 
 class ArXivPaperIDFetcher(object):
 
@@ -31,7 +33,12 @@ class ArXivPaper(object):
   def download(self):
     url = "https://export.arxiv.org/e-print/" + self.pid
 
-    urllib.request.urlretrieve(url, os.path.join(self.download_dir, "{}.tar.gz".format(self.pid)))
+    try:
+      urllib.request.urlretrieve(url, os.path.join(self.download_dir, "{}.tar.gz".format(self.pid)))
+    except:
+      logger.warning(
+        "Unable to download the file '{}' - skipping.".format(
+          os.path.join(self.download_dir, "{}.tar.gz".format(self.pid))))
 
 class ArXiv(object):
 

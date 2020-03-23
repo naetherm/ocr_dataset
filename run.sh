@@ -48,8 +48,6 @@ do
     echo "The entry var is : ${entry}"
     FILENAME=$(basename -- "$entry")
     FILENAME="${FILENAME%.*}"
-    mkdir -p ${SIM_OUT}/${FILENAME}
-    OUT_DIR=${SIM_OUT}/${FILENAME}
     
     # Find the tex file
     i=0
@@ -64,16 +62,19 @@ do
 
     if [[ ${i} == 1 ]]
     then
-      echo "For directory '${entry}' will compile the file '${TEX_LIST}'"
+      echo "For directory '${entry}' will compile the file '${#TEX_LIST[@]}'"
       #TEX_FILES=$(echo ${TEX_LIST} | cut -d$'\n' -f1-)
       # And create a simplified version
       {
-        pdflatex -halt-on-error -interaction=nonstopmode ${TEX_LIST}
+        pdflatex -halt-on-error -interaction=nonstopmode ${#TEX_LIST[@]}
       } && {
-        texsimplifier ${TEX_LIST} > ${OUT_DIR}/simplified.tex
+
+        mkdir -p ${SIM_OUT}/${FILENAME}
+        OUT_DIR=${SIM_OUT}/${FILENAME}
+        texsimplifier ${#TEX_LIST[@]} > ${OUT_DIR}/simplified.tex
 
         # Extract PDF to PPM
-        tex2text ${TEX_LIST} > ${OUT_DIR}/simplified.txt
+        tex2text ${#TEX_LIST[@]} > ${OUT_DIR}/simplified.txt
       } && {
 
         # Compile PDF

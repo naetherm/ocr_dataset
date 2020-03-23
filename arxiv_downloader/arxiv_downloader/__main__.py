@@ -64,6 +64,7 @@ def autoload_main(argv=None):
   with open(args.paper_ids, 'r') as fin:
     for lin in fin:
       lin = lin.replace('\n', '')
+      print("Downloading ArXiv paper: {}".format(lin))
       ArXiv.download_by_pid(lin, args.download_dir)
 
 if __name__ == '__main__':
