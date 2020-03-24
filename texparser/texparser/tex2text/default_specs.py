@@ -50,11 +50,10 @@ def _format_uebung(n, l2t):
         s += '[{}]\n'.format(l2t.nodelist_to_text([optarg]))
     return s
 
-def _format_maketitle(title, author, date):
+def _format_maketitle(title, author):
     s = title + '\n'
     s += '    ' + author + '\n'
-    s += '    ' + date + '\n'
-    s += '='*max(len(title), 4+len(author), 4+len(date)) + '\n\n'
+    #s += '='*max(len(title), 4+len(author), 4+len(date)) + '\n\n'
     return s
 
 def _latex_today():
@@ -115,6 +114,8 @@ latex_base_specs = {
         MacroTextSpec('mathscr', discard=False),
         MacroTextSpec('mathfrak', discard=False),
 
+        MacroTextSpec('date', discard=True),
+
 
         MacroTextSpec('input', simplify_repl=fmt_input_macro),
         MacroTextSpec('include', simplify_repl=fmt_input_macro),
@@ -123,10 +124,9 @@ latex_base_specs = {
 
         ('title', lambda n, l2tobj: setattr(l2tobj, '_doc_title', l2tobj.nodelist_to_text(n.nodeargd.argnlist[0:1]))),
         ('author', lambda n, l2tobj: setattr(l2tobj, '_doc_author', l2tobj.nodelist_to_text(n.nodeargd.argnlist[0:1]))),
-        ('date', lambda n, l2tobj: setattr(l2tobj, '_doc_date', l2tobj.nodelist_to_text(n.nodeargd.argnlist[0:1]))),
+        #('date', lambda n, l2tobj: setattr(l2tobj, '_doc_date', l2tobj.nodelist_to_text(n.nodeargd.argnlist[0:1]))),
         ('maketitle', lambda n, l2tobj: _format_maketitle(getattr(l2tobj, '_doc_title', '[NO \title GIVEN]'),
-                                                          getattr(l2tobj, '_doc_author', '[NO \author GIVEN]'),
-                                                          getattr(l2tobj, '_doc_date', _latex_today()))),
+                                                          getattr(l2tobj, '_doc_author', '[NO \author GIVEN]'))),
 
         ('today', _latex_today()),
 

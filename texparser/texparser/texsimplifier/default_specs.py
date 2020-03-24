@@ -120,7 +120,7 @@ latex_base_specs = {
         MacroTextSpec('affiliation', discard=True),
         MacroTextSpec('address', discard=True),
         MacroTextSpec('preprint', discard=True),
-        MacroTextSpec('date', discard=True),
+        MacroTextSpec('date', simplify_repl="\\date{}\n"),
         # We must include this hack here:
         # Remove the maketitle if there is any, we will hardcoded add it right after begin{document}!
         MacroTextSpec('maketitle', discard=True),

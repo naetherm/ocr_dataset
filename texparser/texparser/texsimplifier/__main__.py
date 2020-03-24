@@ -9,6 +9,7 @@ import argparse
 import logging
 
 from texparser import texwalker
+from texparser.texmacroexpander import TexMacroExpander
 from texparser.texsimplifier import LatexSimplifier, _strict_latex_spaces_predef
 from texparser.version import version_str
 
@@ -135,6 +136,8 @@ def main(argv=None):
     logging.warning("Options --parser-keep-inline-math and --text-keep-inline-math are "
                     "deprecated and no longer have any effect.  Please use "
                     "--math-mode=... instead.")
+
+  # Call the macro expander
 
   latex = ''
   for line in fileinput.input(files=args.files):

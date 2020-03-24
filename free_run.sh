@@ -76,15 +76,19 @@ do
       #TEX_FILES=$(echo ${TEX_LIST} | cut -d$'\n' -f1-)
       # And create a simplified version
       {
-        pdflatex -halt-on-error -interaction=nonstopmode ${TEX_LIST[0]}
-      } && {
-
         mkdir -p ${SIM_OUT}/${FILENAME}
         OUT_DIR=${SIM_OUT}/${FILENAME}
+
+        de-macro ${TEX_LIST[0]}
+
+        pdflatex -halt-on-error -interaction=nonstopmode -output-directory=${OUT_DIR}  ${TEX_LIST[0]}
+
+        cp ${TEX_LIST[0]} ${OUT_DIR}/original.tex
+      } && {
         timeout 10 texsimplifier ${TEX_LIST[0]} > ${OUT_DIR}/simplified.tex
 
         # Extract PDF to PPM
-        tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/simplified.txt
+        tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/original.txt
       } && {
 
         # Compile PDF
@@ -103,8 +107,6 @@ do
         ocr_img2txt --input-directory=${OUT_DIR}/
         ((GCount++))
         echo "Generated the output for ${GCount} now"
-
-        cp ${TEX_LIST[0]}.pdf ${OUT_DIR}/original.pdf
       }
       cd ..
     fi
