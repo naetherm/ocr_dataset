@@ -59,6 +59,7 @@ specs = [
 
             MacroSpec('mbox', args_parser=MacroStandardArgsParser('{', args_math_mode=[False])),
 
+            MacroSpec('geometry', '{'),
 
             MacroSpec('addbibresource', '{'),
 
@@ -74,6 +75,7 @@ specs = [
             MacroSpec('address', '{'),
             MacroSpec('preprint', '{'),
             MacroSpec('email', '{'),
+            MacroSpec('homepage', '{'),
 
             MacroSpec('pacs', '{'),
 
@@ -89,6 +91,10 @@ specs = [
             MacroSpec('\\', args_parser=MacroStandardArgsParser('*[', optional_arg_no_space=True)),
 
             std_macro('item', True, 0),
+            std_macro('par', False, 0),
+            std_macro('smallskip', False, 0),
+            std_macro('midskip', False, 0),
+            std_macro('bigskip', False, 0),
 
             # \input{someotherfile}
             std_macro('input', False, 1),
@@ -102,9 +108,11 @@ specs = [
             std_macro('subsubsection', '*[{'),
             std_macro('pagagraph', '*[{'),
             std_macro('subparagraph', '*[{'),
+            std_macro('hyphenation', '{'),
             #std_macro('verb', '*|'),
 
             std_macro('bibliography', '{'),
+            std_macro('bibliographystyle', '{'),
 
 
             std_macro('emph', False, 1),
@@ -199,10 +207,16 @@ specs = [
             std_environment('table*', '['),
 
             std_environment('abstract', None),
+
+            std_environment('flushleft', None),
+            std_environment('flushright', None),
+            std_environment('center', None),
+            std_environment('description', None),
             
             std_environment('tabular', '{'),
             std_environment('tabular*', '{{'),
             std_environment('tabularx', '{[{'),
+            std_environment('tabbing', None),
 
             std_environment('minipage', '{'),
 

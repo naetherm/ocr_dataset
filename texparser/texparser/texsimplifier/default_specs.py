@@ -95,6 +95,7 @@ latex_base_specs = {
         # NOTE: macro will only be assigned arguments if they are explicitly defined as
         #       accepting arguments in latexwalker.py.
         MacroTextSpec('documentclass', simplify_repl=fmt_replace_documentclass),
+        MacroTextSpec('geometry', discard=True),
         MacroTextSpec('usepackage', discard=False),
         MacroTextSpec('emph', discard=False),
         MacroTextSpec('textrm', discard=False),
@@ -146,11 +147,11 @@ latex_base_specs = {
         ('Cref', '[REF]', None),
         ('eqref', '([REF])', None),
         ('url', '<%s>', None),
-        ('item',
-         lambda r, l2tobj: '\n  '+(
-             l2tobj.nodelist_to_simplified([r.nodeoptarg]) if r.nodeoptarg else '* '
-         ), None
-        ) ,
+        #('item',
+        # lambda r, l2tobj: '\n  '+(
+        #     l2tobj.nodelist_to_simplified([r.nodeoptarg]) if r.nodeoptarg else '* '
+        # ), None
+        #) ,
         #('footnote', '[%s]', None),
         ('href', lambda n, l2tobj:  \
          '{} <{}>'.format(l2tobj.nodelist_to_simplified([n.nodeargd.argnlist[1]]), 

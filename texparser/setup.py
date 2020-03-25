@@ -70,6 +70,7 @@ setup(
             'texwalker=texparser.texwalker.__main__:main',
             'tex2text=texparser.tex2text.__main__:main',
             'texsimplifier=texparser.texsimplifier.__main__:main',
+            'texmacroexpander=texparser.texmacroexpander.__main__:main',
         ],
     },
     install_requires = [],

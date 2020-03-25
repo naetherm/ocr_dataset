@@ -139,6 +139,12 @@ def main(argv=None):
 
   # Call the macro expander
 
+  for filename in args.files:
+    tme = TexMacroExpander(
+      input_file=filename,
+      output_file=filename
+    )
+
   latex = ''
   for line in fileinput.input(files=args.files):
     latex += line

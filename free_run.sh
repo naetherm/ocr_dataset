@@ -79,13 +79,13 @@ do
         mkdir -p ${SIM_OUT}/${FILENAME}
         OUT_DIR=${SIM_OUT}/${FILENAME}
 
-        de-macro ${TEX_LIST[0]}
+        iconv -t UTF-8 ${TEX_LIST[0]} > ${OUT_DIR}/original.tex
 
         pdflatex -halt-on-error -interaction=nonstopmode -output-directory=${OUT_DIR}  ${TEX_LIST[0]}
 
-        cp ${TEX_LIST[0]} ${OUT_DIR}/original.tex
+        #cp ${TEX_LIST[0]} ${OUT_DIR}/original.tex
       } && {
-        timeout 10 texsimplifier ${TEX_LIST[0]} > ${OUT_DIR}/simplified.tex
+        timeout 10 texsimplifier ${OUT_DIR}/original.tex > ${OUT_DIR}/simplified.tex
 
         # Extract PDF to PPM
         tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/original.txt

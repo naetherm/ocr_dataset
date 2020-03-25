@@ -13,7 +13,7 @@ class Macro(object):
     self.num = num
     self.definition = definition
 
-    print("Created: num={}; definition={}".format(self.num, self.definition))
+    #print("Created: num={}; definition={}".format(self.num, self.definition))
 
 class TexMacroExpander(object):
 
@@ -29,8 +29,8 @@ class TexMacroExpander(object):
     # Read the file input
     self.latex_in = ''
     self.latex_out = ''
-    for line in fileinput.input(files=[self.input_file]):
-      self.latex_in += line
+    with open(self.input_file, 'r', encoding='utf-8') as fin:
+      self.latex_in = fin.read()
     self.latex_out = copy.deepcopy(self.latex_in)
 
     self.def_replacements = []
@@ -42,10 +42,10 @@ class TexMacroExpander(object):
     # Perform the expanding
 
     ## Fetch all macros
-    print("Start extraction ...")
+    #print("Start extraction ...")
     self._extract_macros()
 
-    print("Replace extracted macros ...")
+    #print("Replace extracted macros ...")
     ## Replace all macros
     self._expand_macros()
 
@@ -69,18 +69,21 @@ class TexMacroExpander(object):
     self.latex_out = re.sub(def_repl, "", self.latex_out)
     
     
-    print("DEF replacements:")
+    #print("DEF replacements:")
     if def_matches:
-      print(def_matches)#.groups())
+      #print(def_matches)#.groups())
       self.def_replacements = def_matches
       for d in self.def_replacements:
-        m = Macro(min(int(d[1]) / 2, 9) if d[1] != '' else 0, TexMacroExpander.trim_string(d[2]))
-        self.macros[TexMacroExpander.trim_string(d[0])] = m
+        if '#' in d[1]:
+          pass
+        else:
+          m = Macro(min(int(d[1]) / 2, 9) if d[1] != '' else 0, TexMacroExpander.trim_string(d[2]))
+          self.macros[TexMacroExpander.trim_string(d[0])] = m
     
-    print("="*20)
-    print("Fetched Macros:")
-    for m in self.macros:
-      print(m)
+    #print("="*20)
+    #print("Fetched Macros:")
+    #for m in self.macros:
+    #  print(m)
 
     # Extract all \newcommand[*], \renewcommand[*]
     env_matches = re.findall(
@@ -89,10 +92,10 @@ class TexMacroExpander(object):
     env_repl = re.compile(r"\\(?:re)?newcommand\*? *(" + cs + r"|\{" + cs + r"\}) *(\[(\d)\])?" + self._nested_brackets(level=5))
     self.latex_out = re.sub(env_repl, "", self.latex_out)
 
-    print("ENV replacements:")
+    #print("ENV replacements:")
 
     if env_matches:
-      print(env_matches)
+      #print(env_matches)
       self.env_replacements = env_matches
       for e in self.env_replacements:
         m = Macro(
@@ -106,9 +109,9 @@ class TexMacroExpander(object):
       self.latex_in)
     math_repl = re.compile(r"\\DeclareMathOperator(\*?) *(" + cs + r"|\{" + cs + r"\}) *" + self._nested_brackets(5))
     self.latex_out = re.sub(math_repl, "", self.latex_out)
-    print("DeclareMath* replacements:")
+    #print("DeclareMath* replacements:")
     if decl_math_matches:
-      print(decl_math_matches)
+      #print(decl_math_matches)
       self.math_replacements = decl_math_matches
       for e in self.math_replacements:
         m = Macro(
@@ -117,10 +120,10 @@ class TexMacroExpander(object):
         )
         self.macros[TexMacroExpander.trim_string(e[1])] = m
 
-    print("="*20)
-    print("Fetched Macros:")
-    for m in self.macros:
-      print(m)
+    #print("="*20)
+    #print("Fetched Macros:")
+    #for m in self.macros:
+    #  print(m)
 
     #print("Latex_In: {}".format(self.latex_in))
 
@@ -139,9 +142,9 @@ class TexMacroExpander(object):
           m = x.group(k+1)
           #print("Fetch argument: {}".format(m))
           final_repl = final_repl.replace("#{}".format(k+1), TexMacroExpander.trim_string(m))
-        print("\tby: {}".format(final_repl))
+        #print("\tby: {}".format(final_repl))
 
-        print("-> {}".format(x.group()))
+        #print("-> {}".format(x.group()))
 
         self.latex_out = self.latex_out.replace(x_group, final_repl)
 
@@ -164,7 +167,7 @@ class TexMacroExpander(object):
   def _create_regex(self, name, macro):
     num = macro.num
     #repl = macro.definition
-    print("Create regex for : {}".format(name))
+    #print("Create regex for : {}".format(name))
 
     gen_regex_ = r""
 
@@ -175,5 +178,5 @@ class TexMacroExpander(object):
 
     gen_regex_ = r"\\" + name[1:] + r"(?![a-zA-Z\}])" + gen_regex_
 
-    print("Searching for regex: {}".format(gen_regex_))
+    #print("Searching for regex: {}".format(gen_regex_))
     return gen_regex_
