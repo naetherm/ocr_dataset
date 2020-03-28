@@ -22,10 +22,10 @@ def main(argv=None):
   parser = argparse.ArgumentParser(prog='texmacroexpander', add_help=False)
 
   parser.add_argument(
-    'input-file', dest='input_file', 
+    '--input-file', dest='input_file', 
     help="The input file to work on.")
   parser.add_argument(
-    'output-file', dest='output_file',
+    '--output-file', dest='output_file',
     help="The output file to save to."
   )
 

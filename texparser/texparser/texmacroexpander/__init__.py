@@ -54,9 +54,19 @@ class TexMacroExpander(object):
     #print("Created the final output:")
     #print(self.latex_out)
 
+    # Further cleanup
+    split_content = self.latex_out.split("\n")
+    final_output = ""
+    for line in split_content:
+      if line.startswith("\\") and "{" not in line:
+        continue
+      else:
+        final_output += line + "\n"
+
+
     # Don't forget to save the file ...
     with open(self.output_file, 'w') as fout:
-      fout.write(self.latex_out)
+      fout.write(final_output)
 
   def _extract_macros(self):
     cs = r"\\\w+"
@@ -129,13 +139,19 @@ class TexMacroExpander(object):
 
   def _expand_macros(self):
     # Loop through all entries of self.macros and start the replacement
+    temp_out = self.latex_out
     for k, v in self.macros.items():
       # Create regex for that
       repl_regex = re.compile(self._create_regex(k, v))
+      #print("Generated Regex for {}: {}".format(k, repl_regex))
       num = v.num
+
+      shift = 0
 
       for x in re.finditer(self._create_regex(k, v), self.latex_out):
         x_group = str(x.group())
+        #print("Found: {}".format(x_group))
+        #print("-> {}".format(x.span()[0]))
         
         final_repl = v.definition #.replace("\\", "\\\\")
         for k in range(num):
@@ -146,7 +162,14 @@ class TexMacroExpander(object):
 
         #print("-> {}".format(x.group()))
 
-        self.latex_out = self.latex_out.replace(x_group, final_repl)
+
+        inc_shift = len(final_repl)- (x.span()[1] - x.span()[0])
+        
+        self.latex_out = self.latex_out[:x.span()[0]+shift] + final_repl + self.latex_out[x.span()[1]+shift:]
+
+        shift += inc_shift
+    
+    #self.latex_out = temp_out
 
 
   def _nested_brackets(self, level=5):
