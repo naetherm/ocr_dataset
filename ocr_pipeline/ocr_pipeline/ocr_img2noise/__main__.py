@@ -69,7 +69,7 @@ def main(argv=None):
     "--sp-amount",
     dest="sp_amount",
     type=float,
-    default=0.04,
+    default=0.015,
     help="The amount of salt and pepper to add."
   )
 

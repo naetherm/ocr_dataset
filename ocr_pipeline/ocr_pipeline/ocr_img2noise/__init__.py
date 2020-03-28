@@ -13,6 +13,7 @@ except ImportError:
 
 import numpy as np
 import numpy.random as rnd
+import imutils
 
 class Img2NoiseConverter(object):
 
@@ -104,11 +105,12 @@ class Img2NoiseConverter(object):
     # Salt mode
     num_salt = np.ceil(self.sp_amount * img.size * self.sp_ratio)
     coords = [rnd.randint(0, i - 1, int(num_salt)) for i in img.shape]
-    noised[coords] = 255
+
+    noised[coords[0], coords[1], :] = 255
     # Pepper mode
     num_pepper = np.ceil(self.sp_amount * img.size * (1. - self.sp_ratio))
     coords = [rnd.randint(0, i - 1, int(num_pepper)) for i in img.shape]
-    noised[coords] = 0
+    noised[coords[0], coords[1], :] = 0
 
     return noised
 
@@ -137,6 +139,7 @@ class Img2NoiseConverter(object):
     return noised
 
   def _rotate(self, img):
-    noised = img.rotate(self.rotate_angle)
+    noised = imutils.rotate(img, self.rotate_angle)
+    #img.rotate(self.rotate_angle)
 
     return noised

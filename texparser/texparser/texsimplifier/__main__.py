@@ -120,8 +120,10 @@ def main(argv=None):
                       help="Show this help information and exit")
 
 
-  group.add_argument('--letter-spacing', dest='letter_spacing', default=51, 
-                     help="The letter spacing that should be used. default: 51.")
+  group.add_argument('--letter-spacing', dest='letter_spacing', default=56, 
+                     help="The letter spacing that should be used. default: 56.")
+  group.add_argument('--sim-typewriter', dest='sim_typewriter', action='store_true', 
+                     help="If activated, each text will be packed within typewriter font. default: False.")
 
   parser.add_argument('files', metavar="FILE", nargs='*',
                       help='Input files (if none specified, read from stdandard input)')

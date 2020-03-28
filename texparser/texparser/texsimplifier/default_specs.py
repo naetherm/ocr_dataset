@@ -52,7 +52,7 @@ latex_base_specs = {
     'environments': [
 
         # Dirty hack: some documents don't have a \maketitle so let's hardcode it right after begin{document}
-        EnvironmentTextSpec('document', simplify_repl="\n\\begin{document}\n\\newpage\n\\lsstyle\n\\maketitle\n%s\n\\end{document}"),
+        EnvironmentTextSpec('document', simplify_repl="\n\\tolerance=1\n\\emergencystretch=\\maxdimen\n\\hyphenpenalty=10000\n\\hbadness=10000\n\\begin{document}\n\\lsstyle\n\\fontdimen2\\font=0.6ex\n%s\n\\end{document}"), # \n\\newpage...\n\\maketitle
 
         EnvironmentTextSpec('equation', discard=True),
         EnvironmentTextSpec('equation*', discard=True),
@@ -124,7 +124,7 @@ latex_base_specs = {
         MacroTextSpec('date', simplify_repl="\\date{}\n"),
         # We must include this hack here:
         # Remove the maketitle if there is any, we will hardcoded add it right after begin{document}!
-        MacroTextSpec('maketitle', discard=True),
+        MacroTextSpec('maketitle', discard=False),
 
         MacroTextSpec('newtheorem', discard=True),
         MacroTextSpec('newtheorem*', discard=True),

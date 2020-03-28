@@ -39,7 +39,8 @@ else:
 
 
 from texparser.tex2text import MacroTextSpec, EnvironmentTextSpec, SpecialsTextSpec, \
-    fmt_equation_environment, fmt_placeholder_node, placeholder_node_formatter, fmt_input_macro
+    fmt_equation_environment, fmt_placeholder_node, placeholder_node_formatter, fmt_input_macro, \
+    fmt_part_macro, fmt_section_macro, fmt_subsection_macro, fmt_subsubsection_macro
 
 
 
@@ -50,9 +51,9 @@ def _format_uebung(n, l2t):
         s += '[{}]\n'.format(l2t.nodelist_to_text([optarg]))
     return s
 
-def _format_maketitle(title, author):
+def _format_maketitle(title):
     s = title + '\n'
-    s += '    ' + author + '\n'
+    #s += '    ' + author + '\n'
     #s += '='*max(len(title), 4+len(author), 4+len(date)) + '\n\n'
     return s
 
@@ -66,17 +67,28 @@ latex_base_specs = {
     
     'environments': [
 
-        EnvironmentTextSpec('equation', simplify_repl=fmt_equation_environment),
-        EnvironmentTextSpec('eqnarray', simplify_repl=fmt_equation_environment),
-        EnvironmentTextSpec('align', simplify_repl=fmt_equation_environment),
-        EnvironmentTextSpec('multline', simplify_repl=fmt_equation_environment),
-        EnvironmentTextSpec('gather', simplify_repl=fmt_equation_environment),
-        EnvironmentTextSpec('dmath', simplify_repl=fmt_equation_environment),
+        #EnvironmentTextSpec('equation', simplify_repl=fmt_equation_environment),
+        EnvironmentTextSpec('equation', discard=True),
+        EnvironmentTextSpec('equation*', discard=True),
+        #EnvironmentTextSpec('eqnarray', simplify_repl=fmt_equation_environment),
+        EnvironmentTextSpec('eqnarray', discard=True),
+        #EnvironmentTextSpec('align', simplify_repl=fmt_equation_environment),
+        EnvironmentTextSpec('align', discard=True),
+        #EnvironmentTextSpec('multline', simplify_repl=fmt_equation_environment),
+        EnvironmentTextSpec('multiline', discard=True),
+        #EnvironmentTextSpec('gather', simplify_repl=fmt_equation_environment),
+        EnvironmentTextSpec('gather', discard=True),
+        #EnvironmentTextSpec('dmath', simplify_repl=fmt_equation_environment),
+        EnvironmentTextSpec('dmath', discard=True),
 
-        EnvironmentTextSpec('array', simplify_repl=fmt_placeholder_node),
-        EnvironmentTextSpec('pmatrix', simplify_repl=fmt_placeholder_node),
-        EnvironmentTextSpec('bmatrix', simplify_repl=fmt_placeholder_node),
-        EnvironmentTextSpec('smallmatrix', simplify_repl=fmt_placeholder_node),
+        #EnvironmentTextSpec('array', simplify_repl=fmt_placeholder_node),
+        EnvironmentTextSpec('array', discard=True),
+        #EnvironmentTextSpec('pmatrix', simplify_repl=fmt_placeholder_node),
+        EnvironmentTextSpec('pmatrix', discard=True),
+        #EnvironmentTextSpec('bmatrix', simplify_repl=fmt_placeholder_node),
+        EnvironmentTextSpec('bmatrix', discard=True),
+        #EnvironmentTextSpec('smallmatrix', simplify_repl=fmt_placeholder_node),
+        EnvironmentTextSpec('smallmatrix', discard=True),
 
         EnvironmentTextSpec('center', simplify_repl='\n%s\n'),
         EnvironmentTextSpec('flushleft', simplify_repl='\n%s\n'),
@@ -88,7 +100,14 @@ latex_base_specs = {
         EnvironmentTextSpec('itemize', discard=False),
         EnvironmentTextSpec('subequations', discard=False),
         EnvironmentTextSpec('figure', discard=False),
-        EnvironmentTextSpec('table', discard=False),
+        EnvironmentTextSpec('table', discard=True),
+        EnvironmentTextSpec('tabular', discard=True),
+        EnvironmentTextSpec('tabular*', discard=True),
+        EnvironmentTextSpec('minipage', discard=True),
+
+        EnvironmentTextSpec('abstract', simplify_repl="\nAbstract\n\n%s\n"),
+        
+        EnvironmentTextSpec('quote', discard=False),
 
     ],
     'specials': [
@@ -98,6 +117,8 @@ latex_base_specs = {
     'macros': [
         # NOTE: macro will only be assigned arguments if they are explicitly defined as
         #       accepting arguments in latexwalker.py.
+        MacroTextSpec('geometry', discard=True),
+        MacroTextSpec('usepackage', discard=True),
         MacroTextSpec('emph', discard=False),
         MacroTextSpec('textrm', discard=False),
         MacroTextSpec('textit', discard=False),
@@ -114,19 +135,32 @@ latex_base_specs = {
         MacroTextSpec('mathscr', discard=False),
         MacroTextSpec('mathfrak', discard=False),
 
+        MacroTextSpec('caption', discard=True),
+        MacroTextSpec('author', discard=True),
+        MacroTextSpec('shortauthors', discard=True),
+        MacroTextSpec('affiliation', discard=True),
+        MacroTextSpec('address', discard=True),
+        MacroTextSpec('preprint', discard=True),
+        MacroTextSpec('newtheorem', discard=True),
+        MacroTextSpec('newtheorem*', discard=True),
         MacroTextSpec('date', discard=True),
 
 
         MacroTextSpec('input', simplify_repl=fmt_input_macro),
         MacroTextSpec('include', simplify_repl=fmt_input_macro),
 
+        MacroTextSpec('part', simplify_repl=fmt_part_macro),
+        MacroTextSpec('section', simplify_repl=fmt_section_macro),
+        MacroTextSpec('subsection', simplify_repl=fmt_subsection_macro),
+        MacroTextSpec('subsubsection', simplify_repl=fmt_subsubsection_macro),
+
     ] + [ MacroTextSpec(x, simplify_repl=y) for x, y in (
 
         ('title', lambda n, l2tobj: setattr(l2tobj, '_doc_title', l2tobj.nodelist_to_text(n.nodeargd.argnlist[0:1]))),
-        ('author', lambda n, l2tobj: setattr(l2tobj, '_doc_author', l2tobj.nodelist_to_text(n.nodeargd.argnlist[0:1]))),
+        #('author', lambda n, l2tobj: setattr(l2tobj, '_doc_author', l2tobj.nodelist_to_text(n.nodeargd.argnlist[0:1]))),
         #('date', lambda n, l2tobj: setattr(l2tobj, '_doc_date', l2tobj.nodelist_to_text(n.nodeargd.argnlist[0:1]))),
-        ('maketitle', lambda n, l2tobj: _format_maketitle(getattr(l2tobj, '_doc_title', '[NO \title GIVEN]'),
-                                                          getattr(l2tobj, '_doc_author', '[NO \author GIVEN]'))),
+        ('maketitle', lambda n, l2tobj: _format_maketitle(getattr(l2tobj, '_doc_title', '[NO \\title GIVEN]'))),
+                                                          #getattr(l2tobj, '_doc_author', '[NO \author GIVEN]'))),
 
         ('today', _latex_today()),
 
@@ -134,11 +168,11 @@ latex_base_specs = {
         #('includegraphics', placeholder_node_formatter('graphics')),
         ('includegraphics', ''),
 
-        ('ref', '<ref>'),
-        ('autoref', '<ref>'),
-        ('cref', '<ref>'),
-        ('Cref', '<Ref>'),
-        ('eqref', '(<ref>)'),
+        ('ref', '[REF]'),
+        ('autoref', '[REF]'),
+        ('cref', '[REF]'),
+        ('Cref', '[REF]'),
+        ('eqref', '([REF])'),
         ('url', '<%s>'),
         ('item',
          lambda r, l2tobj: '\n  '+(
@@ -150,26 +184,26 @@ latex_base_specs = {
          '{} <{}>'.format(l2tobj.nodelist_to_text([n.nodeargd.argnlist[1]]), 
                           l2tobj.nodelist_to_text([n.nodeargd.argnlist[0]]))),
 
-        ('cite', '<cit.>'),
-        ('citet', '<cit.>'),
-        ('citep', '<cit.>'),
+        ('cite', '[CIT.]'),
+        ('citet', '[CIT.]'),
+        ('citep', '[CIT.]'),
 
         # use second argument:
         ('texorpdfstring', lambda node, l2t: l2t.nodelist_to_text(node.nodeargs[1:2])),
 
 
-        ('part',
-         lambda n, l2tobj: u'\n\nPART: {}\n'.format(l2tobj.node_arg_to_text(n, 2).upper())),
-        ('chapter',
-         lambda n, l2tobj: u'\n\nCHAPTER: {}\n'.format(l2tobj.node_arg_to_text(n, 2).upper())),
-        ('section',
-         lambda n, l2tobj: u'\n\n\N{SECTION SIGN} {}\n'.format(l2tobj.node_arg_to_text(n, 2).upper())),
-        ('subsection',
-         lambda n, l2tobj: u'\n\n \N{SECTION SIGN}.\N{SECTION SIGN} {}\n'.format(
-             l2tobj.node_arg_to_text(n, 2))),
-        ('subsubsection',
-         lambda n, l2tobj: u'\n\n  \N{SECTION SIGN}.\N{SECTION SIGN}.\N{SECTION SIGN} {}\n'.format(
-             l2tobj.node_arg_to_text(n, 2))),
+        ##('part',
+        ## lambda n, l2tobj: u'\n\nPART: {}\n'.format(l2tobj.node_arg_to_text(n, 2).upper())),
+        ##('chapter',
+        ## lambda n, l2tobj: u'\n\nCHAPTER: {}\n'.format(l2tobj.node_arg_to_text(n, 2).upper())),
+        ##('section',
+        ## lambda n, l2tobj: u'\n\n\N{SECTION SIGN} {}\n'.format(l2tobj.node_arg_to_text(n, 2).upper())),
+        ##('subsection',
+        ## lambda n, l2tobj: u'\n\n \N{SECTION SIGN}.\N{SECTION SIGN} {}\n'.format(
+        ##     l2tobj.node_arg_to_text(n, 2))),
+        ##('subsubsection',
+        ## lambda n, l2tobj: u'\n\n  \N{SECTION SIGN}.\N{SECTION SIGN}.\N{SECTION SIGN} {}\n'.format(
+        ##     l2tobj.node_arg_to_text(n, 2))),
         ('paragraph',
          lambda n, l2tobj: u'\n\n  {}\n'.format(l2tobj.node_arg_to_text(n, 2))),
         ('subparagraph',

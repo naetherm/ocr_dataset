@@ -65,11 +65,13 @@ specs = [
 
             # \title, \author, \date
             MacroSpec('title', '*[{'),
+            std_macro('TitreGlobal', '{'),
             MacroSpec('shorttitle', '{'),
             MacroSpec('affiliation', '{'),
             MacroSpec('author', '[{'),
             MacroSpec('shortauthors', '{'),
             MacroSpec('runningauthor', '{'),
+            MacroSpec('runningtitle', '{'),
             MacroSpec('corrauthor', '{'),
             MacroSpec('date', '{'),
             MacroSpec('address', '{'),
@@ -78,6 +80,11 @@ specs = [
             MacroSpec('homepage', '{'),
 
             MacroSpec('pacs', '{'),
+            MacroSpec('markboth', '{'),
+            MacroSpec('catchline', '{{{{{'),
+            MacroSpec('received', '{'),
+            MacroSpec('revised', '{'),
+            MacroSpec('ccode', '{'),
 
             MacroSpec('affil', '[{'),
             MacroSpec('altaffiltext', '{{'),
@@ -113,6 +120,13 @@ specs = [
 
             std_macro('bibliography', '{'),
             std_macro('bibliographystyle', '{'),
+
+            std_macro('linespread', '{'),
+            std_macro('addtolength', '{{'),
+            std_macro('pagestyle', '{'),
+            std_macro('lhead', '{'),
+            std_macro('rhead', '{'),
+            std_macro('thispagestyle', '{'),
 
 
             std_macro('emph', False, 1),
@@ -207,6 +221,7 @@ specs = [
             std_environment('table*', '['),
 
             std_environment('abstract', None),
+            std_environment('history', None),
 
             std_environment('flushleft', None),
             std_environment('flushright', None),

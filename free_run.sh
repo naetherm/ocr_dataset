@@ -33,8 +33,8 @@ do
   FILENAME=$(basename -- "$entry")
   FILENAME="${FILENAME%.*}"
 
-  #mkdir -p ${FILENAME}
-  #tar xzf ${entry} --directory=${FILENAME}
+  mkdir -p ${FILENAME}
+  tar xzf ${entry} --directory=${FILENAME}
 
   #if [ $? -eq 0 ]
   #then 
@@ -85,7 +85,7 @@ do
 
         #cp ${TEX_LIST[0]} ${OUT_DIR}/original.tex
       } && {
-        timeout 10 texsimplifier ${OUT_DIR}/original.tex > ${OUT_DIR}/simplified.tex
+        timeout 10 texsimplifier --letter-spacing 56 ${OUT_DIR}/original.tex > ${OUT_DIR}/simplified.tex
 
         # Extract PDF to PPM
         tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/original.txt

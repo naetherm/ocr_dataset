@@ -12,7 +12,7 @@ dpkg-reconfigure --frontend noninteractive tzdata
 apt install -y wget xzdec python3 python3-dev python3-pip tesseract-ocr tesseract-ocr-eng texlive-full poppler-utils xorg
 
 # Install required python modules
-pip3 install --user pdf2image numpy opencv-python pytesseract Pillow pdflatex requests beautifulsoup4
+pip3 install --user pdf2image numpy opencv-python pytesseract Pillow pdflatex requests beautifulsoup4 imutils
 
 # Build and install arxiv_downloader
 cd arxiv_downloader && python3 -m setup install && cd ..

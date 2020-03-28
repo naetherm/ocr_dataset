@@ -11,6 +11,8 @@ except ImportError:
   import Image
 import pytesseract
 
+custom_oem_psm_config = r'--oem 0'
+
 class Img2TxtConverter(object):
 
   def __init__(
@@ -29,7 +31,7 @@ class Img2TxtConverter(object):
 
     for _, img_fn in enumerate(files_):
       with open(img_fn + ".txt", 'w') as fout:
-        text_ = pytesseract.image_to_string(img_fn)
+        text_ = pytesseract.image_to_string(img_fn, config=custom_oem_psm_config)
         fout.write(text_)
         self.combined_text += "\n" + text_
 

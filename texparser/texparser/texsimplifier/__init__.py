@@ -479,7 +479,7 @@ class LatexSimplifier(object):
 
     self.fill_text = flags.pop('fill_text', None)
 
-    self.letter_spacing = flags.pop('letter_spaccing', 51)
+    self.letter_spacing = flags.pop('letter_spacing', 51)
 
   def set_tex_input_directory(
     self,

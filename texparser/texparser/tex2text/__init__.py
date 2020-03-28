@@ -221,6 +221,66 @@ def MacroDef(macname, simplify_repl=None, discard=None):
 
 
 
+def fmt_part_macro(macronode, l2tobj):
+    part_numbering = 1
+    if hasattr(l2tobj, "__part_number"):
+        part_numbering = int(getattr(l2tobj, "__part_number")) + 1
+        setattr(l2tobj, "__part_number", part_numbering)
+    else:
+        setattr(l2tobj, "__part_number", 1)
+    return "{}. {}\n".format(
+        part_numbering, 
+        l2tobj.node_arg_to_text(macronode, 2))
+
+
+def fmt_section_macro(macronode, l2tobj):
+    section_numbering = 1
+    if hasattr(l2tobj, "__section_number"):
+        section_numbering = int(getattr(l2tobj, "__section_number")) + 1
+        setattr(l2tobj, "__section_number", section_numbering)
+        setattr(l2tobj, "__subsection_number", 1)
+        setattr(l2tobj, "__subsubsection_number", 1)
+    else:
+        setattr(l2tobj, "__section_number", 1)
+        setattr(l2tobj, "__subsection_number", 1)
+        setattr(l2tobj, "__subsubsection_number", 1)
+    return "{}. {}\n".format(
+        section_numbering, 
+        l2tobj.node_arg_to_text(macronode, 2))
+
+
+def fmt_subsection_macro(macronode, l2tobj):
+    subsection_numbering = 1
+    section_numbering = int(getattr(l2tobj, "__section_number"))
+    if hasattr(l2tobj, "__subsection_number"):
+        subsection_numbering = int(getattr(l2tobj, "__subsection_number")) +1
+        setattr(l2tobj, "__subsection_number", subsection_numbering)
+        setattr(l2tobj, "__subsubsection_number", 1)
+    else:
+        setattr(l2tobj, "__subsection_number", 1)
+        setattr(l2tobj, "__subsubsection_number", 1)
+    return "{}.{}. {}\n".format(
+        section_numbering, 
+        subsection_numbering, 
+        l2tobj.node_arg_to_text(macronode, 2))
+
+
+def fmt_subsubsection_macro(macronode, l2tobj):
+    subsubsection_numbering = 1
+    section_numbering = int(getattr(l2tobj, "__section_number"))
+    subsection_numbering = int(getattr(l2tobj, "__subsection_number")) 
+    if hasattr(l2tobj, "__subsubsection_number"):
+        subsubsection_numbering = int(getattr(l2tobj, "__subsubsection_number")) + 1
+        setattr(l2tobj, "__subsubsection_number", subsubsection_numbering)
+    else:
+        setattr(l2tobj, "__subsubsection_number", 1)
+    return "{}.{}.{}. {}\n".format(
+        section_numbering, 
+        subsection_numbering, 
+        subsubsection_numbering,
+        l2tobj.node_arg_to_text(macronode, 2))
+
+
 
 def fmt_equation_environment(envnode, l2tobj):
     r"""
