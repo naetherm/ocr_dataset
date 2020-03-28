@@ -1179,14 +1179,14 @@ class LatexNodes2Text(object):
 
             if node.isNodeType(texwalker.LatexEnvironmentNode):
                 if has_percent_s:
-                    x = (self.nodelist_to_latex(node.nodelist), )
+                    x = (self.nodelist_to_text(node.nodelist), ) # nodelist_to_latex
                 else:
                     x = dict(
                         (str(1+j),val) for j, val in enumerate(
                             self._groupnodecontents_to_text(nn) for nn in nodeargs
                         )
                     )
-                    x.update(body=self.nodelist_to_latex(node.nodelist))
+                    x.update(body=self.nodelist_to_text(node.nodelist)) # nodelist_to_latex
             elif has_percent_s:
                 x = tuple([self._groupnodecontents_to_text(nn)
                            for nn in nodeargs])

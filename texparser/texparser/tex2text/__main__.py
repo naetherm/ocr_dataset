@@ -30,6 +30,7 @@ import logging
 
 
 from texparser import texwalker
+from texparser.texmacroexpander import TexMacroExpander
 from texparser.tex2text import LatexNodes2Text, _strict_latex_spaces_predef
 from texparser.version import version_str
 
@@ -151,6 +152,13 @@ def main(argv=None):
         logging.warning("Options --parser-keep-inline-math and --text-keep-inline-math are "
                         "deprecated and no longer have any effect.  Please use "
                         "--math-mode=... instead.")
+
+
+    for filename in args.files:
+        tme = TexMacroExpander(
+            input_file=filename,
+            output_file=filename
+        )
 
     latex = ''
     for line in fileinput.input(files=args.files):
