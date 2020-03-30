@@ -71,6 +71,7 @@ setup(
             'tex2text=texparser.tex2text.__main__:main',
             'texsimplifier=texparser.texsimplifier.__main__:main',
             'texmacroexpander=texparser.texmacroexpander.__main__:main',
+            'textpostwork=texparser.textpostwork.__main__:main',
         ],
     },
     install_requires = [],

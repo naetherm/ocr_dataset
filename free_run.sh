@@ -35,14 +35,6 @@ do
 
   mkdir -p ${FILENAME}
   tar xzf ${entry} --directory=${FILENAME}
-
-  #if [ $? -eq 0 ]
-  #then 
-  #  # None
-  #  
-  #else
-  #  rm -rf ${FILENAME}
-  #fi
 done
 
 # Now start the simplification process, loop through all entries in $TAR_OUT
@@ -76,6 +68,7 @@ do
       #TEX_FILES=$(echo ${TEX_LIST} | cut -d$'\n' -f1-)
       # And create a simplified version
       {
+        {
         mkdir -p ${SIM_OUT}/${FILENAME}
         OUT_DIR=${SIM_OUT}/${FILENAME}
 
@@ -88,7 +81,8 @@ do
         timeout 10 texsimplifier --letter-spacing 56 ${OUT_DIR}/original.tex > ${OUT_DIR}/simplified.tex
 
         # Extract PDF to PPM
-        tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/original.txt
+        tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/original_asd.txt
+        textpostwork --input-file=${OUT_DIR}/original_asd.txt --output-file=${OUT_DIR}/original.txt
       } && {
 
         # Compile PDF
@@ -107,6 +101,9 @@ do
         ocr_img2txt --input-directory=${OUT_DIR}/
         ((GCount++))
         echo "Generated the output for ${GCount} now"
+      }
+      } || {
+        rm -rf ${OUT_DIR}
       }
       cd ..
     fi

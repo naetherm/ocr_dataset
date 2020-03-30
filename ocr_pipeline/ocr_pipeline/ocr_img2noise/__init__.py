@@ -139,6 +139,7 @@ class Img2NoiseConverter(object):
     return noised
 
   def _rotate(self, img):
+    rot_angle np.random.uniform(low=0, high=2*self.rotate_angle) - self.rotate_angle
     noised = imutils.rotate(img, self.rotate_angle)
     #img.rotate(self.rotate_angle)
 

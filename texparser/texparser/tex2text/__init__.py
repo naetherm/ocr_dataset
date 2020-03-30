@@ -228,7 +228,7 @@ def fmt_part_macro(macronode, l2tobj):
         setattr(l2tobj, "__part_number", part_numbering)
     else:
         setattr(l2tobj, "__part_number", 1)
-    return "{}. {}\n".format(
+    return "{} {}\n".format(
         part_numbering, 
         l2tobj.node_arg_to_text(macronode, 2))
 
@@ -244,7 +244,7 @@ def fmt_section_macro(macronode, l2tobj):
         setattr(l2tobj, "__section_number", 1)
         setattr(l2tobj, "__subsection_number", 1)
         setattr(l2tobj, "__subsubsection_number", 1)
-    return "{}. {}\n".format(
+    return "{} {}\n".format(
         section_numbering, 
         l2tobj.node_arg_to_text(macronode, 2))
 
@@ -259,7 +259,7 @@ def fmt_subsection_macro(macronode, l2tobj):
     else:
         setattr(l2tobj, "__subsection_number", 1)
         setattr(l2tobj, "__subsubsection_number", 1)
-    return "{}.{}. {}\n".format(
+    return "{}.{} {}\n".format(
         section_numbering, 
         subsection_numbering, 
         l2tobj.node_arg_to_text(macronode, 2))
@@ -274,7 +274,7 @@ def fmt_subsubsection_macro(macronode, l2tobj):
         setattr(l2tobj, "__subsubsection_number", subsubsection_numbering)
     else:
         setattr(l2tobj, "__subsubsection_number", 1)
-    return "{}.{}.{}. {}\n".format(
+    return "{}.{}.{} {}\n".format(
         section_numbering, 
         subsection_numbering, 
         subsubsection_numbering,

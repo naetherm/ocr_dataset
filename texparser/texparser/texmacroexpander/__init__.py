@@ -63,6 +63,8 @@ class TexMacroExpander(object):
       else:
         final_output += line + "\n"
 
+    # Shrink the file 
+    final_output = re.sub(r'^[\r\n ]{2,}$', '', final_output)
 
     # Don't forget to save the file ...
     with open(self.output_file, 'w') as fout:
