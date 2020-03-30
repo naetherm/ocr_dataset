@@ -103,7 +103,6 @@ do
         # And generate the text
         ocr_img2txt --input-directory=${OUT_DIR}/
         ((GCount++))
-        echo "Generated the output for ${GCount} now"
       }
       } || {
         rm -rf ${OUT_DIR}
@@ -112,3 +111,5 @@ do
     fi
   fi
 done
+
+echo "Generated the output for ${GCount} now"
