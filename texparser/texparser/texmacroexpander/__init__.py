@@ -3,7 +3,10 @@
 # Chair of Algorithms and Data Structures.
 # Markus Näther <naetherm@informatik.uni-freiburg.de>
 
+import os
+import sys
 import copy
+import glob
 import fileinput
 import regex as re
 
@@ -44,6 +47,18 @@ class TexMacroExpander(object):
     ## Fetch all macros
     #print("Start extraction ...")
     self._extract_macros()
+
+    # Now find all *.sty files within the directory of self.input_file
+    base_dir = os.path.dirname(self.input_file)
+    for file in os.listdir(base_dir):
+      if file.endswith(".sty"):
+        sty_file = os.path.join(base_dir, file)
+
+        self.latex_in = ""
+        with open(sty_file, 'r', encoding='utf-8') as fin:
+          self.latex_in = fin.read()
+        
+        self._extract_macros()
 
     #print("Replace extracted macros ...")
     ## Replace all macros
