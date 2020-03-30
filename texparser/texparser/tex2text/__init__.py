@@ -1031,6 +1031,7 @@ class LatexNodes2Text(object):
             return "".join([self._groupnodecontents_to_text(n) for n in a])
 
         macrostr = get_macro_str_repl(node, macroname, mac)
+
         return macrostr
 
     def environment_node_to_text(self, node):
@@ -1090,6 +1091,11 @@ class LatexNodes2Text(object):
         This method is responsible for honoring the `math_mode=...` option
         provided to the constructor.
         """
+
+        #
+        # JUST REPLACE MY [MATH]
+        #
+        return "[MATH]"
 
         if self.math_mode == 'verbatim':
             if node.isNodeType(texwalker.LatexEnvironmentNode) or node.displaytype == 'display':

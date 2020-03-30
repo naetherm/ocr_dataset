@@ -54,18 +54,18 @@ latex_base_specs = {
         # Dirty hack: some documents don't have a \maketitle so let's hardcode it right after begin{document}
         EnvironmentTextSpec('document', simplify_repl="\n\\tolerance=1\n\\emergencystretch=\\maxdimen\n\\hyphenpenalty=10000\n\\hbadness=10000\n\\begin{document}\n\\lsstyle\n\\fontdimen2\\font=0.6ex\n%s\n\\end{document}"), # \n\\newpage...\n\\maketitle
 
-        EnvironmentTextSpec('equation', discard=True),
-        EnvironmentTextSpec('equation*', discard=True),
-        EnvironmentTextSpec('eqnarray', simplify_repl=fmt_equation_environment),
-        EnvironmentTextSpec('align', simplify_repl=fmt_equation_environment),
+        EnvironmentTextSpec('equation', simplify_repl="[MATH]"),
+        EnvironmentTextSpec('equation*', simplify_repl="[MATH]"),
+        EnvironmentTextSpec('eqnarray', simplify_repl="[MATH]"),
+        EnvironmentTextSpec('align', simplify_repl="[MATH]"),
         EnvironmentTextSpec('multline', simplify_repl=fmt_equation_environment),
         EnvironmentTextSpec('gather', simplify_repl=fmt_equation_environment),
-        EnvironmentTextSpec('dmath', simplify_repl=fmt_equation_environment),
+        EnvironmentTextSpec('dmath', simplify_repl="[MATH]"),
 
-        EnvironmentTextSpec('array', discard=True),
-        EnvironmentTextSpec('pmatrix', discard=True),
-        EnvironmentTextSpec('bmatrix', discard=True),
-        EnvironmentTextSpec('smallmatrix', discard=True),
+        EnvironmentTextSpec('array', simplify_repl="[MATH]"),
+        EnvironmentTextSpec('pmatrix', simplify_repl="[MATH]"),
+        EnvironmentTextSpec('bmatrix', simplify_repl="[MATH]"),
+        EnvironmentTextSpec('smallmatrix', simplify_repl="[MATH]"),
 
         EnvironmentTextSpec('center', simplify_repl='\n%s\n'),
         EnvironmentTextSpec('flushleft', simplify_repl='\n%s\n'),
