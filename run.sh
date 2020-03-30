@@ -9,9 +9,9 @@ DATA="/home/naetherm/Uni/datasets/segmentation"
 OUT="/home/naetherm/Uni/datasets/segmentation"
 
 mkdir -p ${OUT}/arxiv/tars
-mkdir -p ${OUT}/arxiv/out
+mkdir -p ${OUT}/arxiv/noise
 
-SIM_OUT=${OUT}/arxiv/out
+SIM_OUT=${OUT}/arxiv/noise
 TAR_OUT=${OUT}/arxiv/tars
 
 # If there is already a paper_ids.txt we don't fetch the list of all papers
@@ -33,8 +33,11 @@ do
   FILENAME=$(basename -- "$entry")
   FILENAME="${FILENAME%.*}"
 
-  mkdir -p ${FILENAME}
-  tar xzf ${entry} --directory=${FILENAME}
+  if [ ! -d ${FILENAME} ]
+  then
+    mkdir -p ${FILENAME}
+    tar xzf ${entry} --directory=${FILENAME}
+  fi
 done
 
 # Now start the simplification process, loop through all entries in $TAR_OUT

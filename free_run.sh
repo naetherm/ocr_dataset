@@ -33,8 +33,11 @@ do
   FILENAME=$(basename -- "$entry")
   FILENAME="${FILENAME%.*}"
 
-  mkdir -p ${FILENAME}
-  tar xzf ${entry} --directory=${FILENAME}
+  if [ ! -d ${FILENAME} ]
+  then
+    mkdir -p ${FILENAME}
+    tar xzf ${entry} --directory=${FILENAME}
+  fi
 done
 
 # Now start the simplification process, loop through all entries in $TAR_OUT
