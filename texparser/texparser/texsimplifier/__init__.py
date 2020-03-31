@@ -27,6 +27,7 @@ import logging
 import sys
 import inspect
 import textwrap
+from string import ascii_letters
 
 if sys.version_info.major >= 3:
   def unicode(string): return string
@@ -192,8 +193,19 @@ def raise_l2t_unknown_latex(n):
 def fmt_replace_documentclass(envnode, l2tobj):
   if envnode.nodeargd and envnode.nodeargd.argnlist:
     a = envnode.nodeargd.argnlist
-  return "\\documentclass{article}\n" + \
-         "\\usepackage[letterspace="+str(getattr(l2tobj, 'letter_spacing', 51))+"]{microtype}\n"
+  new_dc = "\\documentclass{article}\n" + \
+           "\\usepackage[letterspace="+str(getattr(l2tobj, 'letter_spacing', 51))+"]{microtype}\n"
+
+  if getattr(l2tobj, "sim_typewriter", False):
+    new_dc += "\\renewcommand{\\familydefault}{cmtt}\n"
+    new_dc += "\\renewcommand{\\rmdefault}{cmtt}\n"
+    new_dc += "\\renewcommand{\\sfdefault}{cmtt}\n"
+    new_dc += "\\renewcommand{\\bfdefault}{m}\n"
+    new_dc += "\\renewcommand{\\itdefault}{n}\n"
+    new_dc += "\\renewcommand{\\sldefault}{n}\n"
+    new_dc += "\\renewcommand{\\scdefault}{n}\n"
+  
+  return new_dc
   
   # "\\" + envnode.macroname + "".join([l2tobj._groupnodecontents_to_text(n) if '{' not in n.delimiters else '' for n in a]) + 
   #return envnode.macroname##l2tobj.macro_node_to_text(envnode)
@@ -480,6 +492,7 @@ class LatexSimplifier(object):
     self.fill_text = flags.pop('fill_text', None)
 
     self.letter_spacing = flags.pop('letter_spacing', 51)
+    self.sim_typewriter = flags.pop('sim_typewriter', False)
 
   def set_tex_input_directory(
     self,

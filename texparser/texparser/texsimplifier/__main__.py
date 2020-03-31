@@ -175,7 +175,8 @@ def main(argv=None):
     keep_braced_groups=args.keep_braced_groups,
     keep_braced_groups_minlen=args.keep_braced_groups_minlen,
     fill_text=fill_text,
-    letter_spacing=args.letter_spacing
+    letter_spacing=args.letter_spacing,
+    sim_typewriter=args.sim_typewriter
   )
 
   print(ln2s.nodelist_to_simplified(nodelist) + "\n")

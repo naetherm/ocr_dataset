@@ -104,6 +104,17 @@ latex_base_specs = {
         MacroTextSpec('textsc', discard=False),
         MacroTextSpec('textsl', discard=False),
         MacroTextSpec('text', discard=False),
+        MacroTextSpec('textquoteleft', discard=False),
+        MacroTextSpec('textquoteright', discard=False),
+        MacroTextSpec('textquotedblright', discard=False),
+        MacroTextSpec('textquotedblleft', discard=False),
+        MacroTextSpec('textpm', discard=False),
+        MacroTextSpec('textmp', discard=False),
+        MacroTextSpec('texteuro', discard=False),
+        MacroTextSpec('backslash', discard=False),
+        MacroTextSpec('textbackslash', discard=False),
+        MacroTextSpec('textendash', discard=False),
+        MacroTextSpec('textemdash', discard=False),
         MacroTextSpec('verb', simplify_repl=fmt_verb_macro),
 
         MacroTextSpec('mathrm', discard=False),
@@ -130,12 +141,176 @@ latex_base_specs = {
         MacroTextSpec('newtheorem*', discard=True),
 
 
+        MacroTextSpec('hspace', discard=True),
+        MacroTextSpec('vspace', discard=True),
+        MacroTextSpec('hspace*', discard=True),
+        MacroTextSpec('vspace*', discard=True),
+
+
         MacroTextSpec('input', simplify_repl=fmt_input_macro),
         MacroTextSpec('include', simplify_repl=fmt_input_macro),
 
+
+        #
+        # Math
+        #
+        MacroTextSpec('hbar', discard=True),
+        MacroTextSpec('ell', discard=True),
+        MacroTextSpec('forall', discard=True),
+        MacroTextSpec('complement', discard=True),
+        MacroTextSpec('partial', discard=True),
+        MacroTextSpec('exists', discard=True),
+        MacroTextSpec('nexists', discard=True),
+        MacroTextSpec('varnothing', discard=True),
+        MacroTextSpec('emptyset', discard=True),
+        MacroTextSpec('aleph', discard=True),
+        MacroTextSpec('nabla', discard=True),
+
+        MacroTextSpec('in', discard=True),
+        MacroTextSpec('notin', discard=True),
+        MacroTextSpec('ni', discard=True),
+        MacroTextSpec('prod', discard=True),
+        MacroTextSpec('coprod', discard=True),
+        MacroTextSpec('sum', discard=True),
+        MacroTextSpec('setminus', discard=True),
+        MacroTextSpec('smallsetminus', discard=True),
+        MacroTextSpec('ast', discard=True),
+        MacroTextSpec('circ', discard=True),
+        MacroTextSpec('bullet', discard=True),
+        MacroTextSpec('sqrt', discard=True),
+        MacroTextSpec('propto', discard=True),
+        MacroTextSpec('infty', discard=True),
+        MacroTextSpec('parallel', discard=True),
+        MacroTextSpec('nparallel', discard=True),
+        MacroTextSpec('wedge', discard=True),
+        MacroTextSpec('vee', discard=True),
+        MacroTextSpec('cap', discard=True),
+        MacroTextSpec('cup', discard=True),
+        MacroTextSpec('int', discard=True),
+        MacroTextSpec('iint', discard=True),
+        MacroTextSpec('iiint', discard=True),
+        MacroTextSpec('oint', discard=True),
+
+        MacroTextSpec('sim', discard=True),
+        MacroTextSpec('backsim', discard=True),
+        MacroTextSpec('simeq', discard=True),
+        MacroTextSpec('approx', discard=True),
+        MacroTextSpec('neq', discard=True),
+        MacroTextSpec('equiv', discard=True),
+        MacroTextSpec('ge', discard=True),
+        MacroTextSpec('le', discard=True),
+        MacroTextSpec('leq', discard=True),
+        MacroTextSpec('geq', discard=True),
+        MacroTextSpec('leqslant', discard=True),
+        MacroTextSpec('geqslant', discard=True),
+        MacroTextSpec('leqq', discard=True),
+        MacroTextSpec('geqq', discard=True),
+        MacroTextSpec('ll', discard=True),
+        MacroTextSpec('gg', discard=True),
+        MacroTextSpec('nless', discard=True),
+        MacroTextSpec('ngtr', discard=True),
+        MacroTextSpec('nleq', discard=True),
+        MacroTextSpec('ngeq', discard=True),
+        MacroTextSpec('lesssim', discard=True),
+        MacroTextSpec('lessgtr', discard=True),
+        MacroTextSpec('gtrless', discard=True),
+        MacroTextSpec('prec', discard=True),
+        MacroTextSpec('succ', discard=True),
+        MacroTextSpec('preceq', discard=True),
+        MacroTextSpec('succeq', discard=True),
+        MacroTextSpec('succsim', discard=True),
+        MacroTextSpec('precsim', discard=True),
+        MacroTextSpec('nprec', discard=True),
+        MacroTextSpec('nsucc', discard=True),
+        MacroTextSpec('subset', discard=True),
+        MacroTextSpec('supset', discard=True),
+        MacroTextSpec('subseteq', discard=True),
+        MacroTextSpec('supseteq', discard=True),
+        MacroTextSpec('nsubseteq', discard=True),
+        MacroTextSpec('bsupseteq', discard=True),
+        MacroTextSpec('subsetneq', discard=True),
+        MacroTextSpec('supsetneq', discard=True),
+        MacroTextSpec('hbar', discard=True),
+        MacroTextSpec('hbar', discard=True),
+        MacroTextSpec('hbar', discard=True),
+
+        MacroTextSpec('cdot', discard=True),
+        MacroTextSpec('times', discard=True),
+        MacroTextSpec('otimes', discard=True),
+        MacroTextSpec('oplus', discard=True),
+        MacroTextSpec('bigotimes', discard=True),
+        MacroTextSpec('bigoplus', discard=True),
+
+        MacroTextSpec('frac', discard=True),
+        MacroTextSpec('nicefrac', discard=True),
+
+        MacroTextSpec('cos', discard=True),
+        MacroTextSpec('sin', discard=True),
+        MacroTextSpec('tan', discard=True),
+        MacroTextSpec('arccos', discard=True),
+        MacroTextSpec('arcsin', discard=True),
+        MacroTextSpec('arctan', discard=True),
+        MacroTextSpec('cosh', discard=True),
+        MacroTextSpec('sinh', discard=True),
+        MacroTextSpec('tanh', discard=True),
+        MacroTextSpec('arccosh', discard=True),
+        MacroTextSpec('arcsinh', discard=True),
+        MacroTextSpec('arctanh', discard=True),
+
+        MacroTextSpec('ln', discard=True),
+        MacroTextSpec('log', discard=True),
+
+        MacroTextSpec('max', discard=True),
+        MacroTextSpec('min', discard=True),
+        MacroTextSpec('sup', discard=True),
+        MacroTextSpec('inf', discard=True),
+        MacroTextSpec('lim', discard=True),
+        MacroTextSpec('limsup', discard=True),
+        MacroTextSpec('liminf', discard=True),
+
+        MacroTextSpec('prime', discard=True),
+        MacroTextSpec('dag', discard=True),
+        MacroTextSpec('dagger', discard=True),
+        MacroTextSpec('pm', discard=True),
+        MacroTextSpec('mp', discard=True),
+        MacroTextSpec('quad', discard=True),
+        MacroTextSpec('qquad', discard=True),
+        MacroTextSpec('ldots', discard=True),
+        MacroTextSpec('cdots', discard=True),
+        MacroTextSpec('ddots', discard=True),
+        MacroTextSpec('dots', discard=True),
+
+        MacroTextSpec('langle', discard=True),
+        MacroTextSpec('rangle', discard=True),
+        MacroTextSpec('lvert', discard=True),
+        MacroTextSpec('rvert', discard=True),
+        MacroTextSpec('lVert', discard=True),
+        MacroTextSpec('rVert', discard=True),
+        MacroTextSpec('Vert', discard=True),
+        MacroTextSpec('mid', discard=True),
+        MacroTextSpec('nmid', discard=True),
+        MacroTextSpec('ket', discard=True),
+        MacroTextSpec('bra', discard=True),
+        MacroTextSpec('braket', discard=True),
+        MacroTextSpec('ketbra', discard=True),
+        MacroTextSpec('uparrow', discard=True),
+        MacroTextSpec('downarrow', discard=True),
+        MacroTextSpec('rightarrow', discard=True),
+        MacroTextSpec('Downarrow', discard=True),
+        MacroTextSpec('Rightarrow', discard=True),
+        MacroTextSpec('to', discard=True),
+        MacroTextSpec('leftarrow', discard=True),
+        MacroTextSpec('rightarrow', discard=True),
+        MacroTextSpec('Leftarrow', discard=True),
+        MacroTextSpec('Rightarrow', discard=True),
+        MacroTextSpec('longrightarrow', discard=True),
+        MacroTextSpec('longleftarrow', discard=True),
+        MacroTextSpec('id', discard=True),
+        MacroTextSpec('Ident', discard=True),
+
     ] + [ MacroTextSpec(x, simplify_repl=y, discard=False, n=z) for x, y, z in (
 
-        ('today', None, None),
+        ('today', "", None),
 
 
         #('includegraphics', placeholder_node_formatter('graphics')),
@@ -174,212 +349,34 @@ latex_base_specs = {
         ('paragraph', None, None),
         ('subparagraph', None, None),
         
-        ('hspace', '', None),
-        ('vspace', '\n', None),
+        #('hspace', '', None),
+        #('vspace', '\', None),
 
-        ('oe', u'\u0153', None),
-        ('OE', u'\u0152', None),
-        ('ae', u'\u00e6', None),
-        ('AE', u'\u00c6', None),
-        ('aa', u'\u00e5', None), # a norvegien/nordique
-        ('AA', u'\u00c5', None), # A norvegien/nordique
-        ('o', u'\u00f8', None), # o norvegien/nordique
-        ('O', u'\u00d8', None), # O norvegien/nordique
-        ('ss', u'\u00df', None), # s-z allemand
-        ('L', u"\N{LATIN CAPITAL LETTER L WITH STROKE}", None),
-        ('l', u"\N{LATIN SMALL LETTER L WITH STROKE}", None),
-        ('i', u"\N{LATIN SMALL LETTER DOTLESS I}", None),
-        ('j', u"\N{LATIN SMALL LETTER DOTLESS J}", None),
+        #('oe', u'\u0153', None),
+        #('OE', u'\u0152', None),
+        #('ae', u'\u00e6', None),
+        #('AE', u'\u00c6', None),
+        #('aa', u'\u00e5', None), # a norvegien/nordique
+        #('AA', u'\u00c5', None), # A norvegien/nordique
+        #('o', u'\u00f8', None), # o norvegien/nordique
+        #('O', u'\u00d8', None), # O norvegien/nordique
+        #('ss', u'\u00df', None), # s-z allemand
+        #('L', u"\N{LATIN CAPITAL LETTER L WITH STROKE}", None),
+        #('l', u"\N{LATIN SMALL LETTER L WITH STROKE}", None),
+        #('i', u"\N{LATIN SMALL LETTER DOTLESS I}", None),
+        #('j', u"\N{LATIN SMALL LETTER DOTLESS J}", None),
 
-        ("~", "~" , None),
-        ("&", "&" , None),
-        ("$", "$" , None),
-        ("{", "{" , None),
-        ("}", "}" , None),
-        ("%", lambda arg: "%" , None), # careful: % is formatting substitution symbol...
-        ("#", "#" , None),
-        ("_", "_" , None),
+        ("~", None, None),
+        ("&", None, None),
+        ("$", None, None),
+        ("{", None, None),
+        ("}", None, None),
+        ("%", lambda arg: "\\%" , None), # careful: % is formatting substitution symbol...
+        ("#", None, None),
+        ("_", None, None),
 
-        ("\\", '\n', None),
+        ("\\", None, None),
 
-        ("textquoteleft", "\N{LEFT SINGLE QUOTATION MARK}", None),
-        ("textquoteright", "\N{RIGHT SINGLE QUOTATION MARK}", None),
-        ("textquotedblright", u"\N{RIGHT DOUBLE QUOTATION MARK}", None),
-        ("textquotedblleft", u"\N{LEFT DOUBLE QUOTATION MARK}", None),
-        ("textendash", u"\N{EN DASH}", None),
-        ("textemdash", u"\N{EM DASH}", None),
-
-        ('textpm', u"\N{PLUS-MINUS SIGN}", None),
-        ('textmp', u"\N{MINUS-OR-PLUS SIGN}", None),
-
-        ("texteuro", u"\N{EURO SIGN}", None),
-
-        ("backslash", "\\", None),
-        ("textbackslash", "\\", None),
-
-        # math stuff
-
-        ("hbar", u"\N{LATIN SMALL LETTER H WITH STROKE}", None),
-        ("ell", u"\N{SCRIPT SMALL L}", None),
-
-        ('forall', u"\N{FOR ALL}", None),
-        ('complement', u"\N{COMPLEMENT}", None),
-        ('partial', u"\N{PARTIAL DIFFERENTIAL}", None),
-        ('exists', u"\N{THERE EXISTS}", None),
-        ('nexists', u"\N{THERE DOES NOT EXIST}", None),
-        ('varnothing', u"\N{EMPTY SET}", None),
-        ('emptyset', u"\N{EMPTY SET}", None),
-        ('aleph', u"\N{ALEF SYMBOL}", None),
-        # increment?
-        ('nabla', u"\N{NABLA}", None),
-        #
-        ('in', u"\N{ELEMENT OF}", None),
-        ('notin', u"\N{NOT AN ELEMENT OF}", None),
-        ('ni', u"\N{CONTAINS AS MEMBER}", None),
-        ('prod', u'\N{N-ARY PRODUCT}', None),
-        ('coprod', u'\N{N-ARY COPRODUCT}', None),
-        ('sum', u'\N{N-ARY SUMMATION}', None),
-        ('setminus', u'\N{SET MINUS}', None),
-        ('smallsetminus', u'\N{SET MINUS}', None),
-        ('ast', u'\N{ASTERISK OPERATOR}', None),
-        ('circ', u'\N{RING OPERATOR}', None),
-        ('bullet', u'\N{BULLET OPERATOR}', None),
-        ('sqrt', u'\N{SQUARE ROOT}(%(2)s)', None),
-        ('propto', u'\N{PROPORTIONAL TO}', None),
-        ('infty', u'\N{INFINITY}', None),
-        ('parallel', u'\N{PARALLEL TO}', None),
-        ('nparallel', u'\N{NOT PARALLEL TO}', None),
-        ('wedge', u"\N{LOGICAL AND}", None),
-        ('vee', u"\N{LOGICAL OR}", None),
-        ('cap', u'\N{INTERSECTION}', None),
-        ('cup', u'\N{UNION}', None),
-        ('int', u'\N{INTEGRAL}', None),
-        ('iint', u'\N{DOUBLE INTEGRAL}', None),
-        ('iiint', u'\N{TRIPLE INTEGRAL}', None),
-        ('oint', u'\N{CONTOUR INTEGRAL}', None),
-
-        ('sim', u'\N{TILDE OPERATOR}', None),
-        ('backsim', u'\N{REVERSED TILDE}', None),
-        ('simeq', u'\N{ASYMPTOTICALLY EQUAL TO}', None),
-        ('approx', u'\N{ALMOST EQUAL TO}', None),
-        ('neq', u'\N{NOT EQUAL TO}', None),
-        ('equiv', u'\N{IDENTICAL TO}', None),
-        ('ge', u'>', None),#
-        ('le', u'<', None),#
-        ('leq', u'\N{LESS-THAN OR EQUAL TO}', None),
-        ('geq', u'\N{GREATER-THAN OR EQUAL TO}', None),
-        ('leqslant', u'\N{LESS-THAN OR EQUAL TO}', None),
-        ('geqslant', u'\N{GREATER-THAN OR EQUAL TO}', None),
-        ('leqq', u'\N{LESS-THAN OVER EQUAL TO}', None),
-        ('geqq', u'\N{GREATER-THAN OVER EQUAL TO}', None),
-        ('lneqq', u'\N{LESS-THAN BUT NOT EQUAL TO}', None),
-        ('gneqq', u'\N{GREATER-THAN BUT NOT EQUAL TO}', None),
-        ('ll', u'\N{MUCH LESS-THAN}', None),
-        ('gg', u'\N{MUCH GREATER-THAN}', None),
-        ('nless', u'\N{NOT LESS-THAN}', None),
-        ('ngtr', u'\N{NOT GREATER-THAN}', None),
-        ('nleq', u'\N{NEITHER LESS-THAN NOR EQUAL TO}', None),
-        ('ngeq', u'\N{NEITHER GREATER-THAN NOR EQUAL TO}', None),
-        ('lesssim', u'\N{LESS-THAN OR EQUIVALENT TO}', None),
-        ('gtrsim', u'\N{GREATER-THAN OR EQUIVALENT TO}', None),
-        ('lessgtr', u'\N{LESS-THAN OR GREATER-THAN}', None),
-        ('gtrless', u'\N{GREATER-THAN OR LESS-THAN}', None),
-        ('prec', u'\N{PRECEDES}', None),
-        ('succ', u'\N{SUCCEEDS}', None),
-        ('preceq', u'\N{PRECEDES OR EQUAL TO}', None),
-        ('succeq', u'\N{SUCCEEDS OR EQUAL TO}', None),
-        ('precsim', u'\N{PRECEDES OR EQUIVALENT TO}', None),
-        ('succsim', u'\N{SUCCEEDS OR EQUIVALENT TO}', None),
-        ('nprec', u'\N{DOES NOT PRECEDE}', None),
-        ('nsucc', u'\N{DOES NOT SUCCEED}', None),
-        ('subset', u'\N{SUBSET OF}', None),
-        ('supset', u'\N{SUPERSET OF}', None),
-        ('subseteq', u'\N{SUBSET OF OR EQUAL TO}', None),
-        ('supseteq', u'\N{SUPERSET OF OR EQUAL TO}', None),
-        ('nsubseteq', u'\N{NEITHER A SUBSET OF NOR EQUAL TO}', None),
-        ('nsupseteq', u'\N{NEITHER A SUPERSET OF NOR EQUAL TO}', None),
-        ('subsetneq', u'\N{SUBSET OF WITH NOT EQUAL TO}', None),
-        ('supsetneq', u'\N{SUPERSET OF WITH NOT EQUAL TO}', None),
-
-        ('cdot', u'\N{MIDDLE DOT}', None),
-        ('times', u'\N{MULTIPLICATION SIGN}', None),
-        ('otimes', u'\N{CIRCLED TIMES}', None),
-        ('oplus', u'\N{CIRCLED PLUS}', None),
-        ('bigotimes', u'\N{CIRCLED TIMES}', None),
-        ('bigoplus', u'\N{CIRCLED PLUS}', None),
-
-        ('frac', '%s/%s', None),
-        ('nicefrac', '%s/%s', None),
-
-        ('cos', 'cos', None),
-        ('sin', 'sin', None),
-        ('tan', 'tan', None),
-        ('arccos', 'arccos', None),
-        ('arcsin', 'arcsin', None),
-        ('arctan', 'arctan', None),
-        ('cosh', 'cosh', None),
-        ('sinh', 'sinh', None),
-        ('tanh', 'tanh', None),
-        ('arccosh', 'arccosh', None),
-        ('arcsinh', 'arcsinh', None),
-        ('arctanh', 'arctanh', None),
-        
-        ('ln', 'ln', None),
-        ('log', 'log', None),
-
-        ('max', 'max', None),
-        ('min', 'min', None),
-        ('sup', 'sup', None),
-        ('inf', 'inf', None),
-        ('lim', 'lim', None),
-        ('limsup', 'lim sup', None),
-        ('liminf', 'lim inf', None),
-
-        ('prime', "'", None),
-        ('dag', u"\N{DAGGER}", None),
-        ('dagger', u"\N{DAGGER}", None),
-        ('pm', u"\N{PLUS-MINUS SIGN}", None),
-        ('mp', u"\N{MINUS-OR-PLUS SIGN}", None),
-
-        (',', u" ", None),
-        (';', u" ", None),
-        (':', u" ", None),
-        (' ', u" ", None),
-        ('!', u"", None), # sorry, no negative space in ascii
-        ('quad', u"  ", None),
-        ('qquad', u"    ", None),
-
-        ('ldots', u"...", None),
-        ('cdots', u"...", None),
-        ('ddots', u"...", None),
-        ('dots', u"...", None),
-
-        ('langle', u'\N{LEFT ANGLE BRACKET}', None),
-        ('rangle', u'\N{RIGHT ANGLE BRACKET}', None),
-        ('lvert', u'|', None),
-        ('rvert', u'|', None),
-        ('vert', u'|', None),
-        ('lVert', u'\u2016', None),
-        ('rVert', u'\u2016', None),
-        ('Vert', u'\u2016', None),
-        ('mid', u'|', None),
-        ('nmid', u'\N{DOES NOT DIVIDE}', None),
-
-        ('ket', u'|%s\N{RIGHT ANGLE BRACKET}', None),
-        ('bra', u'\N{LEFT ANGLE BRACKET}%s|', None),
-        ('braket', u'\N{LEFT ANGLE BRACKET}%s|%s\N{RIGHT ANGLE BRACKET}', None),
-        ('ketbra', u'|%s\N{RIGHT ANGLE BRACKET}\N{LEFT ANGLE BRACKET}%s|', None),
-        ('uparrow', u'\N{UPWARDS ARROW}', None),
-        ('downarrow', u'\N{DOWNWARDS ARROW}', None),
-        ('rightarrow', u'\N{RIGHTWARDS ARROW}', None),
-        ('to', u'\N{RIGHTWARDS ARROW}', None),
-        ('leftarrow', u'\N{LEFTWARDS ARROW}', None),
-        ('longrightarrow', u'\N{LONG RIGHTWARDS ARROW}', None),
-        ('longleftarrow', u'\N{LONG LEFTWARDS ARROW}', None),
-
-        # we use these conventions as Identity operator (\mathbbm{1})
-        ('id', u'\N{MATHEMATICAL DOUBLE-STRUCK CAPITAL I}', None),
-        ('Ident', u'\N{MATHEMATICAL DOUBLE-STRUCK CAPITAL I}', None),
     )]
 }
 
@@ -396,110 +393,6 @@ specs = [
     ('nonascii-specials', {
         'macros': [],
         'environments': [],
-        'specials': [
-            SpecialsTextSpec('~', u"\N{NO-BREAK SPACE}"),
-            SpecialsTextSpec('``', u"\N{LEFT DOUBLE QUOTATION MARK}"),
-            SpecialsTextSpec("''", u"\N{RIGHT DOUBLE QUOTATION MARK}"),
-            SpecialsTextSpec("--", u"\N{EN DASH}"),
-            SpecialsTextSpec("---", u"\N{EM DASH}"),
-            SpecialsTextSpec("!`", u"\N{INVERTED EXCLAMATION MARK}"),
-            SpecialsTextSpec("?`", u"\N{INVERTED QUESTION MARK}"),
-        ]
+        'specials': []
     }),
 ]
-
-
-
-
-
-def _greekletters(letterlist):
-    for l in letterlist:
-        ucharname = l.upper()
-        if ucharname == 'LAMBDA':
-            ucharname = 'LAMDA'
-        smallname = "GREEK SMALL LETTER "+ucharname
-        if ucharname == 'EPSILON':
-            smallname = "GREEK LUNATE EPSILON SYMBOL"
-        if ucharname == 'PHI':
-            smallname = "GREEK PHI SYMBOL"
-        latex_base_specs['macros'].append(
-            MacroTextSpec(l, unicodedata.lookup(smallname))
-        )
-        latex_base_specs['macros'].append(
-            MacroTextSpec(l[0].upper()+l[1:], unicodedata.lookup("GREEK CAPITAL LETTER "+ucharname))
-            )
-_greekletters(
-    ('alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa',
-     'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigma', 'tau', 'upsilon', 'phi',
-     'chi', 'psi', 'omega')
-)
-latex_base_specs['macros'] += [
-    MacroTextSpec('varepsilon', u'\N{GREEK SMALL LETTER EPSILON}'),
-    MacroTextSpec('vartheta', u'\N{GREEK THETA SYMBOL}'),
-    MacroTextSpec('varpi', u'\N{GREEK PI SYMBOL}'),
-    MacroTextSpec('varrho', u'\N{GREEK RHO SYMBOL}'),
-    MacroTextSpec('varsigma', u'\N{GREEK SMALL LETTER FINAL SIGMA}'),
-    MacroTextSpec('varphi', u'\N{GREEK SMALL LETTER PHI}'),
-    ]
-
-
-unicode_accents_list = (
-    # see http://en.wikibooks.org/wiki/LaTeX/Special_Characters for a list
-    ("'", u"\N{COMBINING ACUTE ACCENT}"),
-    ("`", u"\N{COMBINING GRAVE ACCENT}"),
-    ('"', u"\N{COMBINING DIAERESIS}"),
-    ("c", u"\N{COMBINING CEDILLA}"),
-    ("^", u"\N{COMBINING CIRCUMFLEX ACCENT}"),
-    ("~", u"\N{COMBINING TILDE}"),
-    ("H", u"\N{COMBINING DOUBLE ACUTE ACCENT}"),
-    ("k", u"\N{COMBINING OGONEK}"),
-    ("=", u"\N{COMBINING MACRON}"),
-    ("b", u"\N{COMBINING MACRON BELOW}"),
-    (".", u"\N{COMBINING DOT ABOVE}"),
-    ("d", u"\N{COMBINING DOT BELOW}"),
-    ("r", u"\N{COMBINING RING ABOVE}"),
-    ("u", u"\N{COMBINING BREVE}"),
-    ("v", u"\N{COMBINING CARON}"),
-
-    ("vec", u"\N{COMBINING RIGHT ARROW ABOVE}"),
-    ("dot", u"\N{COMBINING DOT ABOVE}"),
-    ("hat", u"\N{COMBINING CIRCUMFLEX ACCENT}"),
-    ("check", u"\N{COMBINING CARON}"),
-    ("breve", u"\N{COMBINING BREVE}"),
-    ("acute", u"\N{COMBINING ACUTE ACCENT}"),
-    ("grave", u"\N{COMBINING GRAVE ACCENT}"),
-    ("tilde", u"\N{COMBINING TILDE}"),
-    ("bar", u"\N{COMBINING OVERLINE}"),
-    ("ddot", u"\N{COMBINING DIAERESIS}"),
-
-    ("not", u"\N{COMBINING LONG SOLIDUS OVERLAY}"),
-
-    )
-
-def make_accented_char(node, combining, l2tobj):
-    if len(node.nodeargs):
-        nodearg = node.nodeargs[0]
-        c = l2tobj.nodelist_to_simplified([nodearg]).strip()
-    else:
-        c = ' '
-
-    def getaccented(ch, combining):
-        ch = unicode(ch)
-        combining = unicode(combining)
-        if (ch == u"\N{LATIN SMALL LETTER DOTLESS I}"):
-            ch = u"i"
-        if (ch == u"\N{LATIN SMALL LETTER DOTLESS J}"):
-            ch = u"j"
-        #print u"Accenting %s with %s"%(ch, combining) # this causes UnicdeDecodeError!!!
-        return unicodedata.normalize('NFC', unicode(ch)+combining)
-
-    return u"".join([getaccented(ch, combining) for ch in c])
-
-
-for u in unicode_accents_list:
-    (mname, mcombining) = u
-    latex_base_specs['macros'].append(
-        MacroTextSpec(mname, lambda x, l2tobj, c=mcombining: make_accented_char(x, c, l2tobj))
-    )
-
-# specs structure now complete
