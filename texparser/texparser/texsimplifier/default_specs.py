@@ -104,6 +104,7 @@ latex_base_specs = {
         MacroTextSpec('textsc', discard=False),
         MacroTextSpec('textsl', discard=False),
         MacroTextSpec('text', discard=False),
+        MacroTextSpec('item', discard=False),
         MacroTextSpec('lsstyle', discard=False),
         MacroTextSpec('textquoteleft', discard=False),
         MacroTextSpec('textquoteright', discard=False),
