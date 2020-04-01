@@ -102,6 +102,8 @@ specs = [
             std_macro('smallskip', False, 0),
             std_macro('midskip', False, 0),
             std_macro('bigskip', False, 0),
+            
+            std_macro('lsstyle', False, 0),
 
             # \input{someotherfile}
             std_macro('input', False, 1),

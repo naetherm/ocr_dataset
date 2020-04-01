@@ -145,6 +145,8 @@ latex_base_specs = {
         MacroTextSpec('newtheorem*', discard=True),
         MacroTextSpec('date', discard=True),
 
+        MacroTextSpec('lsstyle', discard=False),
+
 
         MacroTextSpec('input', simplify_repl=fmt_input_macro),
         MacroTextSpec('include', simplify_repl=fmt_input_macro),

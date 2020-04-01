@@ -124,6 +124,10 @@ def main(argv=None):
                      help="The letter spacing that should be used. default: 56.")
   group.add_argument('--sim-typewriter', dest='sim_typewriter', action='store_true', 
                      help="If activated, each text will be packed within typewriter font. default: False.")
+  group.add_argument('--remove-title', dest='remove_title', action='store_true', 
+                     help="If activated, the title will be fully removed. default: False.")
+  group.add_argument('--no-abstract', dest='no_abstract', action='store_true', 
+                     help="If activated, the abstract will be removed, if any is available. default: False.")
 
   parser.add_argument('files', metavar="FILE", nargs='*',
                       help='Input files (if none specified, read from stdandard input)')
@@ -176,7 +180,9 @@ def main(argv=None):
     keep_braced_groups_minlen=args.keep_braced_groups_minlen,
     fill_text=fill_text,
     letter_spacing=args.letter_spacing,
-    sim_typewriter=args.sim_typewriter
+    sim_typewriter=args.sim_typewriter,
+    remove_title=args.remove_title,
+    no_abstract=args.no_abstract
   )
 
   print(ln2s.nodelist_to_simplified(nodelist) + "\n")

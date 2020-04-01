@@ -53,7 +53,7 @@ latex_base_specs = {
 
         # Dirty hack: some documents don't have a \maketitle so let's hardcode it right after begin{document}
         EnvironmentTextSpec('document', simplify_repl="\n\\tolerance=1\n\\emergencystretch=\\maxdimen\n\\hyphenpenalty=10000\n\\hbadness=10000\n\\begin{document}\n\\lsstyle\n\\fontdimen2\\font=0.6ex\n%s\n\\end{document}"), # \n\\newpage...\n\\maketitle
-
+        # simplify_repl=fmt_replace_begin_document), 
         EnvironmentTextSpec('equation', simplify_repl="[MATH]"),
         EnvironmentTextSpec('equation*', simplify_repl="[MATH]"),
         EnvironmentTextSpec('eqnarray', simplify_repl="[MATH]"),
@@ -104,6 +104,7 @@ latex_base_specs = {
         MacroTextSpec('textsc', discard=False),
         MacroTextSpec('textsl', discard=False),
         MacroTextSpec('text', discard=False),
+        MacroTextSpec('lsstyle', discard=False),
         MacroTextSpec('textquoteleft', discard=False),
         MacroTextSpec('textquoteright', discard=False),
         MacroTextSpec('textquotedblright', discard=False),
@@ -126,15 +127,15 @@ latex_base_specs = {
 
 
         MacroTextSpec('caption', discard=True),
-        MacroTextSpec('author', discard=True),
-        MacroTextSpec('shortauthors', discard=True),
-        MacroTextSpec('title', discard=False),
         MacroTextSpec('affiliation', discard=True),
         MacroTextSpec('address', discard=True),
         MacroTextSpec('preprint', discard=True),
         MacroTextSpec('date', simplify_repl="\\date{}\n"),
         # We must include this hack here:
         # Remove the maketitle if there is any, we will hardcoded add it right after begin{document}!
+        MacroTextSpec('author', discard=True),
+        MacroTextSpec('shortauthors', discard=True),
+        MacroTextSpec('title', discard=False),
         MacroTextSpec('maketitle', discard=False),
 
         MacroTextSpec('newtheorem', discard=True),
@@ -376,6 +377,7 @@ latex_base_specs = {
         ("_", None, None),
 
         ("\\", None, None),
+        ("\"", None, None),
 
     )]
 }

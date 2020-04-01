@@ -194,7 +194,7 @@ def fmt_replace_documentclass(envnode, l2tobj):
   if envnode.nodeargd and envnode.nodeargd.argnlist:
     a = envnode.nodeargd.argnlist
   new_dc = "\\documentclass{article}\n" + \
-           "\\usepackage[letterspace="+str(getattr(l2tobj, 'letter_spacing', 51))+"]{microtype}\n"
+           "\\usepackage[letterspace="+str(getattr(l2tobj, 'letter_spacing', 51))+"]{microtype}\n\\lsstyle\n"
 
   if getattr(l2tobj, "sim_typewriter", False):
     new_dc += "\\renewcommand{\\familydefault}{cmtt}\n"
@@ -205,6 +205,9 @@ def fmt_replace_documentclass(envnode, l2tobj):
     new_dc += "\\renewcommand{\\sldefault}{n}\n"
     new_dc += "\\renewcommand{\\scdefault}{n}\n"
   
+  #logger.warning("\n"*20)
+  #logger.warning("Replacing documentclass: {}".format(new_dc))
+  #logger.warning("\n"*20)
   return new_dc
   
   # "\\" + envnode.macroname + "".join([l2tobj._groupnodecontents_to_text(n) if '{' not in n.delimiters else '' for n in a]) + 
@@ -212,8 +215,28 @@ def fmt_replace_documentclass(envnode, l2tobj):
 
 
 def fmt_replace_begin_document(envnode, l2tobj):
+
+  #logger.warning("\n"*20)
+  #logger.warning("Add lsstyle!")
+  #logger.warning("\n"*20)
+  result = ""
   # Several hacks are placed here: 
-  return "\\begin{document}\n\\newpage\\maketitle\n"
+  if (hasattr(l2tobj, 'remove_title') and getattr(l2tobj, 'remove_title') == True):
+    result = "\\begin{document}\n\\lsstyle\n"
+  else:
+    result = "\\begin{document}\n\\lsstyle\n\\newpage\\maketitle\n"
+
+  return result + l2tobj.nodelist_to_simplified(envnode.nodelist) + "\\end{document}"
+
+
+def fmt_replace_author(envnode, l2tobj):
+  if (hasattr(l2tobj, 'remove_title')):
+    return ""
+  else:
+
+    if envnode.nodeargd and envnode.nodeargd.argnlist:
+      a = envnode.nodeargd.argnlist
+    return "\title" + "".join([envnode.nodeargd.delimiters[0] + l2tobj._groupnodecontents_to_text(n) + envnode.nodeargd.delimiters[1] for n in a])
 
 
 def fmt_verb_macro(envnode, l2tobj):
@@ -493,6 +516,8 @@ class LatexSimplifier(object):
 
     self.letter_spacing = flags.pop('letter_spacing', 51)
     self.sim_typewriter = flags.pop('sim_typewriter', False)
+    self.remove_title = flags.pop('remove_title', False)
+    self.no_abstract = flags.pop('no_abstract', False)
 
   def set_tex_input_directory(
     self,

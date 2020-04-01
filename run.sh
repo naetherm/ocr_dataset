@@ -83,9 +83,12 @@ do
       } && {
         timeout 10 texsimplifier --letter-spacing 56 ${OUT_DIR}/original.tex > ${OUT_DIR}/simplified.tex
 
+        cp ${OUT_DIR}/simplified.tex ${OUT_DIR}/simplified_temp.tex
+
         # Extract PDF to PPM
         tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/original_asd.txt
         textpostwork --input-file=${OUT_DIR}/original_asd.txt --output-file=${OUT_DIR}/original.txt
+        rm ${OUT_DIR}/simplified_temp.tex ${OUT_DIR}/original_temp.txt
       } && {
 
         # Compile PDF

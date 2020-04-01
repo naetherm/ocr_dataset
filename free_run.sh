@@ -33,12 +33,16 @@ do
   FILENAME=$(basename -- "$entry")
   FILENAME="${FILENAME%.*}"
 
-  if [ ! -d ${FILENAME} ]
-  then
-    mkdir -p ${FILENAME}
-    tar xzf ${entry} --directory=${FILENAME}
-  fi
+  #if [ ! -d ${FILENAME} ]
+  #then
+  #  mkdir -p ${FILENAME}
+  #  tar xzf ${entry} --directory=${FILENAME}
+  #fi
 done
+
+#NCORES=(echo $(nproc))
+#NCORES=$((nproc / 2))
+#Y_M_SETS=("0801", "0802", "0803", "0804")
 
 # Now start the simplification process, loop through all entries in $TAR_OUT
 GCount=0
@@ -81,11 +85,14 @@ do
 
         #cp ${TEX_LIST[0]} ${OUT_DIR}/original.tex
       } && {
-        timeout 10 texsimplifier --letter-spacing 56 ${OUT_DIR}/original.tex > ${OUT_DIR}/simplified.tex
+        timeout 10 texsimplifier --letter-spacing 81 ${OUT_DIR}/original.tex > ${OUT_DIR}/simplified.tex
+
+        cp ${OUT_DIR}/simplified.tex ${OUT_DIR}/simplified_temp.tex
 
         # Extract PDF to PPM
-        tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/original_asd.txt
-        textpostwork --input-file=${OUT_DIR}/original_asd.txt --output-file=${OUT_DIR}/original.txt
+        tex2text ${OUT_DIR}/simplified_temp.tex > ${OUT_DIR}/original_temp.txt
+        textpostwork --input-file=${OUT_DIR}/original_temp.txt --output-file=${OUT_DIR}/original.txt
+        rm ${OUT_DIR}/simplified_temp.tex ${OUT_DIR}/original_temp.txt
       } && {
 
         # Compile PDF
