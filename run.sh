@@ -86,8 +86,8 @@ do
         cp ${OUT_DIR}/simplified.tex ${OUT_DIR}/simplified_temp.tex
 
         # Extract PDF to PPM
-        tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/original_asd.txt
-        textpostwork --input-file=${OUT_DIR}/original_asd.txt --output-file=${OUT_DIR}/original.txt
+        tex2text ${OUT_DIR}/simplified.tex > ${OUT_DIR}/original_temp.txt
+        textpostwork --input-file=${OUT_DIR}/original_temp.txt --output-file=${OUT_DIR}/original.txt
         rm ${OUT_DIR}/simplified_temp.tex ${OUT_DIR}/original_temp.txt
       } && {
 

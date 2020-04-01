@@ -751,6 +751,7 @@ class LatexSimplifier(object):
     return s
 
   def math_node_to_text(self, node):
+    return "[MATH]"
     if self.math_mode == 'verbatim':
       if node.isNodeType(texwalker.LatexEnvironmentNode) or node.displaytype == 'display':
         return self._fmt_indented_block(node.latex_verbatim(), indent='')
