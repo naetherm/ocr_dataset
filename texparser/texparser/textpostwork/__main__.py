@@ -38,7 +38,7 @@ def main(argv=None):
 
   #print("cont: {}".format(cont))
 
-  cont = re.sub(r'^\n+(?=\n)', '', cont)
+  cont = re.sub(r'^\n+(?=\n)', '\n', cont)
 
   #print("cont: {}".format(cont))
 
